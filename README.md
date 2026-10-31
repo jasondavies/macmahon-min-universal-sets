@@ -23,6 +23,11 @@ each pair as a directed edge gives **two disjoint triangles**, with both
 directions present on every edge. The ten unordered partitions into triples
 give exactly the ten minimum collections.
 
+![The 30 MacMahon cubes, each opened out to show all six faces, arranged in Conway's tableau](paper/macmahon-cubes.svg)
+
+*The 30 varieties in Conway's tableau, each opened out as in Johnson and Roldán's
+Figure 2. Digits are face colours; mirror-image varieties lie across the diagonal.*
+
 The classification resolves Johnson and Roldán's
 [Conjectures 4 and 8](https://arxiv.org/abs/2407.13208v1) and extends their
 conjectured classification to collections with repeated varieties. The minimum size
