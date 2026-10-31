@@ -64,11 +64,36 @@ private lemma row_shape (f : Label → ℕ) (hz : f 0 = 0) (hs : ∑ i, f i = 2)
   exact Or.inr ⟨i, j, hi0, hj0, (Finset.mem_erase.mp hj).1.symm, hi1, by omega⟩
 
 set_option maxHeartbeats 1000000 in
+/-- Partition cover excludes a doubled edge at the normalized position 01. -/
+lemma no_normalized_doubled_edge (a : Inventory) (hz : DiagonalZero a)
+    (hr : ∀ i, row a i = 2) (hs : ∀ i j, a (i,j) = a (j,i))
+    (hp : ∀ b : Fin 10, 0 < ∑ p : Pair, winner b p * a p) : a (0,1) ≠ 2 := by
+  norm_num [DiagonalZero, row, Fin.forall_fin_succ, Fin.sum_univ_succ] at hz hr hs
+  norm_num [Fin.forall_fin_succ, winner, twoTriangles, triple,
+    Fintype.sum_prod_type, Fin.sum_univ_succ, -add_pos_iff] at hp
+  omega
+
+set_option maxHeartbeats 1000000 in
+/-- Two unit edges from 0 must close to the triangle on labels 0, 1 and 2. -/
+lemma normalized_triangle_closes (a : Inventory) (hz : DiagonalZero a)
+    (hr : ∀ i, row a i = 2) (hs : ∀ i j, a (i,j) = a (j,i))
+    (hp : ∀ b : Fin 10, 0 < ∑ p : Pair, winner b p * a p)
+    (h01 : a (0,1) = 1) (h02 : a (0,2) = 1) : a (1,2) = 1 := by
+  norm_num [DiagonalZero, row, Fin.forall_fin_succ, Fin.sum_univ_succ] at hz hr hs
+  norm_num [Fin.forall_fin_succ, winner, twoTriangles, triple,
+    Fintype.sum_prod_type, Fin.sum_univ_succ, -add_pos_iff] at hp
+  omega
+
+set_option maxHeartbeats 1000000 in
 /-- Two local configurations suffice after permuting the labels. -/
 private lemma classify_normalized (a : Inventory) (hz : DiagonalZero a)
     (hr : ∀ i, row a i = 2) (hs : ∀ i j, a (i,j) = a (j,i))
     (hp : ∀ b : Fin 10, 0 < ∑ p : Pair, winner b p * a p)
     (hn : a (0,1) = 2 ∨ (a (0,1) = 1 ∧ a (0,2) = 1)) : a = winner 0 := by
+  rcases hn with hdouble | ⟨h01, h02⟩
+  · exact (no_normalized_doubled_edge a hz hr hs hp hdouble).elim
+  have h12 := normalized_triangle_closes a hz hr hs hp h01 h02
+  clear hp
   have s10 := hs 1 0
   have s20 := hs 2 0
   have s30 := hs 3 0
@@ -86,22 +111,12 @@ private lemma classify_normalized (a : Inventory) (hz : DiagonalZero a)
   have s54 := hs 5 4
   clear hs
   norm_num [DiagonalZero, row, Fin.forall_fin_succ, Fin.sum_univ_succ] at hz hr
-  norm_num [Fin.forall_fin_succ, winner, twoTriangles, triple,
-    Fintype.sum_prod_type, Fin.sum_univ_succ, -add_pos_iff] at hp
-  simp only [s10, s20, s30, s40, s50, s21, s31, s41, s51, s32, s42, s52, s43, s53, s54] at hr hp
+  simp only [s10, s20, s30, s40, s50, s21, s31, s41, s51, s32, s42, s52, s43, s53, s54] at hr
   rcases hz with ⟨z0, z1, z2, z3, z4, z5⟩
-  simp only [z0, z1, z2, z3, z4, z5, Nat.add_zero, Nat.zero_add] at hr hp
-  rcases hn with hdouble | ⟨h01, h02⟩
-  · exfalso
-    clear s10 s20 s30 s40 s50 s21 s31 s41 s51 s32 s42 s52 s43 s53 s54 z0 z1 z2 z3 z4 z5
-    omega
-  · have h12 : a (1,2) = 1 := by
-      clear s10 s20 s30 s40 s50 s21 s31 s41 s51 s32 s42 s52 s43 s53 s54 z0 z1 z2 z3 z4 z5
-      omega
-    clear hp
-    funext ⟨i, j⟩
-    fin_cases i <;> fin_cases j <;>
-      norm_num [winner, twoTriangles, triple, s10, s20, s30, s40, s50, s21, s31, s41, s51, s32, s42, s52, s43, s53, s54, z0, z1, z2, z3, z4, z5] <;> omega
+  simp only [z0, z1, z2, z3, z4, z5, Nat.add_zero, Nat.zero_add] at hr
+  funext ⟨i, j⟩
+  fin_cases i <;> fin_cases j <;>
+    norm_num [winner, twoTriangles, triple, s10, s20, s30, s40, s50, s21, s31, s41, s51, s32, s42, s52, s43, s53, s54, z0, z1, z2, z3, z4, z5] <;> omega
 
 /-- Complete classification using two local configurations, up to relabelling. -/
 lemma classify_degree_two (a : Inventory) (hz : DiagonalZero a)
