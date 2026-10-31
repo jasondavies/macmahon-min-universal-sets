@@ -1,0 +1,128 @@
+{
+  "reviewed_at_utc": "2026-10-31T22:24:37.561749+00:00",
+  "scope": "Manuscript citations and notes.txt; limited literature search, not a publication-priority certification. No Lean proofs changed or revalidated in this review.",
+  "references": [
+    {
+      "key": "JR",
+      "url": "https://arxiv.org/abs/2407.13208v1",
+      "checked": "Theorem 3; Conjectures 4 and 8; Tables 2 and 3; Section 6.",
+      "corrections": "Explicit credit for ten known constructions and their colour-permutation orbit; exact histogram citation; distinguish sampled and exhaustive ranges. No later arXiv version or journal publication found in the checked records."
+    },
+    {
+      "key": "H",
+      "doi": "10.1016/j.disc.2015.12.014",
+      "url": "https://arxiv.org/abs/1408.3696v2",
+      "metadata_source": "https://barrel.repo.nii.ac.jp/records/5145",
+      "checked": "Lemma 2; Theorem 4; Propositions 1-4; Property 2. Numbering explicitly pinned to preprint v2.",
+      "corrections": "Credit both feasibility criteria and the existing minimum-size theorem, including multiset convention."
+    },
+    {
+      "key": "B2017",
+      "url": "https://ajc.maths.uq.edu.au/pdf/68/ajc_v68_p071.pdf",
+      "checked": "Section 3; Lemma 4.1.",
+      "corrections": "Added source for tableau exposition and the guarantee of at least one target from ten distinct varieties. No DOI located; publisher PDF linked."
+    },
+    {
+      "key": "B2008",
+      "doi": "10.1016/j.disc.2007.03.058",
+      "url": "https://sites.lafayette.edu/berkovee/files/2011/01/Ncubes.pdf",
+      "metadata_source": "https://api.crossref.org/works/10.1016/j.disc.2007.03.058",
+      "checked": "Lemma 2.7.",
+      "corrections": "Added original corner-sharing reference. Author-hosted preprint says Jenna Hammang; published Crossref record says Jenna Van Sickle, used in bibliography."
+    },
+    {
+      "key": "Lean4",
+      "doi": "10.1007/978-3-030-79876-5_37",
+      "url": "https://link.springer.com/chapter/10.1007/978-3-030-79876-5_37",
+      "checked": "Authors, title, CADE 28, volume 12699, year 2021, pages 625-635.",
+      "corrections": "Added system reference."
+    },
+    {
+      "key": "mathlib",
+      "doi": "10.1145/3372885.3373824",
+      "url": "https://arxiv.org/abs/1910.09336",
+      "metadata_source": "https://github.com/leanprover-community/mathlib4/blob/master/CITATION.md",
+      "checked": "Official citation instructions also read in pinned local .lake/packages/mathlib/CITATION.md.",
+      "corrections": "Added library reference."
+    }
+  ],
+  "notes_review": {
+    "already_addressed": [
+      "Multiset theorem",
+      "Physical rotation/corner connection in the formalization",
+      "Distinction between six-label support graph and eight-corner compatibility multigraph"
+    ],
+    "stale_text": "The opening notes predate the completed formalization; the two graph possibilities apply only to distinct-variety collections. Repeated varieties require the two additional weighted support types already handled in the manuscript.",
+    "recommended_additions": [
+      {
+        "item": "Side-by-side C6 and two-triangle figure",
+        "assessment": "Useful exposition. Caption must specify distinct varieties; one undirected edge represents two cube varieties."
+      },
+      {
+        "item": "Twelve-cube criterion",
+        "statement": "An inventory of twelve physical cubes is universal iff each target has at least eight usable physical cubes and all forty oriented corner types occur.",
+        "assessment": "Follows from the written proof: usability alone gives row/column sums two and symmetric multiplicities; corner coverage eliminates bipartite supports; the remaining two-triangle inventories are universal. Not separately added or Lean-formalized in this citation review."
+      },
+      {
+        "item": "Thirteen-cube inclusion-minimal example",
+        "assessment": "Counts checked against saved masks; one example independently checked by face-rotation matching, including every deletion. Suitable optional illustration; novelty not established. Not added as a theorem in this citation review."
+      }
+    ],
+    "thirteen_cube_check": {
+      "universal_13_sets": 53100,
+      "containing_minimum_12_set": 180,
+      "inclusion_minimal_13_sets": 52920,
+      "count_scope": "Containment analysis of saved exhaustive masks; universality of all 53100 sets was not re-enumerated in this review.",
+      "example": {
+        "mask": 286455,
+        "cubes": [
+          "Ab",
+          "Ac",
+          "Ad",
+          "Af",
+          "Ba",
+          "Bc",
+          "Bd",
+          "Bf",
+          "Ca",
+          "Cb",
+          "Cd",
+          "Cf",
+          "De"
+        ],
+        "all_30_targets_geometrically_buildable": true,
+        "deletion_counterexample_targets": {
+          "Ab": "Ab",
+          "Ac": "Ac",
+          "Ad": "Ad",
+          "Af": "Af",
+          "Ba": "Ac",
+          "Bc": "Ab",
+          "Bd": "Ab",
+          "Bf": "Ab",
+          "Ca": "Ab",
+          "Cb": "Ac",
+          "Cd": "Ab",
+          "Cf": "Ab",
+          "De": "Ab"
+        }
+      }
+    }
+  },
+  "other_literature_checked": [
+    {
+      "url": "https://ajc.maths.uq.edu.au/pdf/84/ajc_v84_p086.pdf",
+      "assessment": "Berkove and Schettler (2022) studies two-colour hypercubes; not a direct source for this six-colour minimum-universal classification."
+    }
+  ],
+  "unresolved_source": {
+    "author": "Moshe Rosenfeld",
+    "title": "MacMahon Cubes and Moshe’s Insanity, Puzzle 1",
+    "journal": "Geombinatorics Quarterly 36(2), October 2026, starts at page 78",
+    "publisher_listing": "https://geombina.uccs.edu/past-issues/volume-xxxvi",
+    "author_index": "https://geombina.uccs.edu/author-index/moshe-rosenfeld",
+    "status": "Publication listing verified; full text not located and user has no access. Retained as an unchecked related lead; not a blocker and not cited as evidence in the manuscript."
+  },
+  "search_conclusion": "No resolution of the ten-set conjecture found in the sources searched. This negative search result does not establish priority, especially pending the unread 2026 article.",
+  "bibliography_style": "Linked DOI identifiers where verified; compact linked arXiv identifiers; publisher PDF where no DOI located."
+}

@@ -88,19 +88,19 @@ For additional information on amsmath, use the `?' option.
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd) [1{/var/lib/texmf/fonts/map/pdftex/up
 dmap/pdftex.map}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texm
 f/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/
-dvips/lm/lm-mathit.enc}] [2{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}]
- [3] [4] (./macmahon-min-universal-sets.aux) )</usr/share/texmf/fonts/type1/pub
-lic/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/shar
-e/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/l
-m/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texm
-f/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12
-.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/
-type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr
-/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/pub
-lic/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/shar
-e/texmf/fonts/type1/public/lm/lmtt9.pfb>
-Output written on macmahon-min-universal-sets.pdf (4 pages, 276982 bytes).
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/
+dvips/lm/lm-mathsy.enc}] [2{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}]
+ [3] [4] [5] (./macmahon-min-universal-sets.aux) )</usr/share/texmf/fonts/type1
+/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/
+share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/publ
+ic/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/
+texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/l
+mr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fo
+nts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb><
+/usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1
+/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/
+share/texmf/fonts/type1/public/lm/lmtt9.pfb>
+Output written on macmahon-min-universal-sets.pdf (5 pages, 288254 bytes).
 Transcript written on macmahon-min-universal-sets.log.
 Latexmk: Getting log file 'macmahon-min-universal-sets.log'
 Latexmk: Examining 'macmahon-min-universal-sets.fls'

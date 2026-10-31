@@ -12,7 +12,7 @@
     "axiom_audit": "passed",
     "generated_modules_byte_reproduction": 17,
     "geometric_checker": "passed",
-    "paper_pdf": "passed; 4 pages; no overfull boxes"
+    "paper_pdf": "passed; 5 pages; no overfull boxes"
   },
   "comparator": {
     "command": "bash scripts/palomar/verify-comparator.sh",
@@ -71,8 +71,8 @@
     "README.md": "b65cb98baaefbe90f70f279ff48eafba8e363997c25097e6d6a87c1ad0d751bb",
     "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
     "Makefile": "94306c547b71743265daabd2fd8f43b8bcab7b385b7c07e4691a12b49b3fc8a8",
-    "paper/macmahon-min-universal-sets.tex": "8899e7c38c25c498a5628c03d1f0a8811d6ed83020be3773365644c073a102c2",
-    "paper/macmahon-min-universal-sets.pdf": "938025eb2112900cba2c644b72511c9e4ab64040da1c22fa75f320ef3c9ddb1a",
+    "paper/macmahon-min-universal-sets.tex": "1bc0d05af993445bc8685efd7b0e6959ddad2439f10449d2a4694e90f3eca82a",
+    "paper/macmahon-min-universal-sets.pdf": "b86ba54da7425d742bcb500cda0c24a25d65d8cdd153f4989e9c14a3e14ccfcc",
     "scripts/check-package.py": "54e1cb6b09939ac579eda84145052a006a4fbabfdfd582fd4bfea047911aa0c8",
     "scripts/check.sh": "7d1beb7752e7be1582459e4e2265518bd7c6963ab23b918038cb615c03a2bddd",
     "scripts/generate_lean_classification.py": "c910daef3a035cb7f16952ff7e6a3e0abcfc3d3908a8c4e8b3835b2447083cda",
@@ -92,5 +92,19 @@
     "relocated_make_check": "passed",
     "origin": "https://github.com/jasondavies/macmahon-min-universal-sets",
     "existing_visualization_and_notes": "preserved"
+  },
+  "paper_revision": {
+    "verified_at_utc": "2026-10-31T22:19:19.020206+00:00",
+    "changes": "Explanatory revisions only: counting conventions, named corner correspondence lemma and direction-labelled table, explicit K2,2 assignment, graph definitions, and abstract qualification.",
+    "corner_table": "All 40 direction-labelled entries and 240 incidences checked against the tableau; corner 256 example checked; tableau checked against all 30 geometrically generated varieties.",
+    "paper_build": "make paper passed; 5 pages; no LaTeX warnings or overfull boxes",
+    "formal_proofs": "All previously recorded non-paper source hashes unchanged; Lean and comparator checks not rerun for this manuscript-only revision."
+  },
+  "citation_revision": {
+    "verified_at_utc": "2026-10-31T22:24:48.981251+00:00",
+    "review": "validation/literature-review.json",
+    "paper_build": "make paper passed; 5 pages; no LaTeX warnings or overfull boxes",
+    "bibliography": "All six entries cited; citation keys resolve; verified DOI and arXiv links added.",
+    "scope": "Citation and notes review only. Existing concurrent Lean working-tree edits were neither modified nor revalidated here; earlier Lean/comparator records retain their original verification scope."
   }
 }
