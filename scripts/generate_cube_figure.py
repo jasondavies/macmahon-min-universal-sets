@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """Write paper/macmahon-cubes.svg: all 30 cubes, opened out, in Conway's tableau.
 
-Faces come from results/cubes/geometry.json and are drawn as in Johnson and
+Faces come from results/geometry.json and are drawn as in Johnson and
 Roldan's Figure 2, in the left-handed frame the paper uses: +x right, +y down,
-+z towards the viewer. Stops if any cube disagrees with results/cubes/tableau.txt.
++z towards the viewer. Stops if any cube disagrees with results/tableau.txt.
 """
 import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-RESULTS = ROOT / 'results/cubes'
+RESULTS = ROOT / 'results'
 OUTPUT = ROOT / 'paper/macmahon-cubes.svg'
 
 LABELS = 'ABCDEF'

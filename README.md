@@ -74,7 +74,7 @@ using the six coordinate face directions and finite rotation tables.
 The paper also reports exhaustive target-count histograms for sets of 8–13
 distinct varieties, including the minimum size for exactly 29 targets. Those
 computational results are not Lean theorems. Saved data are in
-[`results/cubes/`](results/cubes/); reproduction commands appear below.
+[`results/`](results/); reproduction commands appear below.
 
 ## Build and verification
 
@@ -116,8 +116,8 @@ python3 scripts/verify_cubes.py
 This checks the geometric model, candidate collections, saved histogram
 accounting and example constructions. It reads the saved enumeration results;
 it does not rerun the exhaustive enumeration. It rewrites the derived files
-`geometry.json`, `corner_partitions.tex`, `universal_witnesses.json`,
-`extremal_witnesses.json` and `verification.json` under `results/cubes/`.
+`geometry.json`, `universal_witnesses.json`, `extremal_witnesses.json` and
+`verification.json` under `results/`.
 
 To rerun both enumeration algorithms for every reported size, 8–13, install a
 C++20 compiler with OpenMP support (the Makefile defaults to `g++`), then run:
@@ -126,17 +126,19 @@ C++20 compiler with OpenMP support (the Makefile defaults to `g++`), then run:
 make cubes
 for k in 8 9 10 11 12 13; do
   python3 scripts/run_cube_experiment.py --k "$k" --threads 8 --histogram --selftest \
-    --output "results/cubes/k${k}.json" || break
+    --output "results/k${k}.json" || break
   python3 scripts/run_cube_experiment.py --k "$k" --threads 8 --histogram \
-    --matching-tables --output "results/cubes/k${k}-matching.json" || break
+    --matching-tables --output "results/k${k}-matching.json" || break
 done
 python3 scripts/verify_cubes.py
 ```
 
 Adjust `--threads` to suit the machine. For size 12 only, use `for k in 12`.
 Each run replaces its output JSON file and appends
-a provenance record to `results/cubes/experiments.jsonl`. Graph and matching
-runs share the outer enumeration and tableau; the geometric checker is separate.
+a provenance record to `results/experiments.jsonl`, with commands relative to
+the repository root. `results/tableau.txt` is the transcribed input tableau.
+Graph and matching runs share the outer enumeration and tableau; the geometric
+checker is separate.
 
 After regenerating the geometric data and construction certificates, regenerate
 and check the Lean constants with:

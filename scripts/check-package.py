@@ -21,7 +21,7 @@ files = [Path('MacMahon/Data.lean'), Path('MacMahon/WitnessData.lean')]
 with tempfile.TemporaryDirectory(prefix='macmahon-generate-') as td:
     tmp=Path(td)
     shutil.copytree(root/'scripts',tmp/'scripts')
-    shutil.copytree(root/'results/cubes',tmp/'results/cubes')
+    shutil.copytree(root/'results',tmp/'results')
     (tmp/'MacMahon').mkdir()
     subprocess.run(['python3',str(tmp/'scripts/generate_lean_data.py')],check=True)
     for p in files:

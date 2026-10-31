@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from verify_cubes import corners
 root=Path(__file__).resolve().parents[1]
-g=json.loads((root/'results/cubes/geometry.json').read_text())
+g=json.loads((root/'results/geometry.json').read_text())
 cs=sorted({c for cube in g['cubes'].values() for c in corners(tuple(cube))})
 ids={c:i for i,c in enumerate(cs)}
 def vec(x):return '!['+', '.join(vec(y) if isinstance(y,list) else str(y) for y in x)+']'
@@ -43,7 +43,7 @@ for p in partitions:
   if support<=names:cover.append(ids[c]);break
 text+='def partitionCorner : Fin 10 → Corner := '+vec(cover)+'\n'
 # Supply injective physical-slot witnesses for every winning set and target.
-w=json.loads((root/'results/cubes/universal_witnesses.json').read_text())
+w=json.loads((root/'results/universal_witnesses.json').read_text())
 byset={frozenset(row['cubes']):row for row in w}
 choices=[]
 for p in partitions:

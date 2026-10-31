@@ -130,7 +130,7 @@ struct Model {
 int main(int argc,char **argv) {
     try {
         int k=12,threads=8,prefix_limit=32768; bool histogram=false,selftest=false,matching_tables=false;
-        std::string input="results/cubes/tableau.txt",output="results/cubes/classification.json";
+        std::string input="results/tableau.txt",output="results/classification.json";
         for(int i=1;i<argc;++i) {
             std::string arg=argv[i];
             if(arg=="--histogram") { histogram=true; continue; }

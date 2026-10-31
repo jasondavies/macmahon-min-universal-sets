@@ -12,7 +12,7 @@ import math
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'results/cubes'
+OUT=ROOT/'results'
 
 
 def require(condition,message):
@@ -74,23 +74,18 @@ def main():
 
     # Establish the corner / pair-of-directed-triangles correspondence.
     actual={frozenset(n for n in names if c in table[n]):c for c in all_corners}
-    expected=set(); known_sets=set(); partition_rows=[]
+    expected=set(); known_sets=set()
     for pair in itertools.combinations(range(1,6),2):
         a=(0,*pair); b=tuple(i for i in range(6) if i not in a)
         selected={chr(65+i)+chr(97+j) for part in (a,b) for i in part for j in part if i!=j}
         known_sets.add(sum(1<<index[n] for n in selected))
-        corner_numbers=[]
         for aa in (a,(a[0],a[2],a[1])):
             for bb in (b,(b[0],b[2],b[1])):
                 arcs=frozenset(chr(65+i)+chr(97+j) for part in (aa,bb) for i,j in zip(part,part[1:]+part[:1]))
                 expected.add(arcs)
                 require(arcs in actual,'Missing directed-triangle corner')
-                corner_numbers.append(''.join(map(str,actual[arcs])))
-        partition_rows.append((''.join(chr(65+i) for i in a)+'|'+''.join(chr(65+i) for i in b),corner_numbers))
     require(set(actual)==expected,'Corner correspondence is not exact')
     require(len(known_sets)==10,'Expected ten triangle-pair sets')
-    tex='\n'.join('$'+label.replace('|',r'\mid ')+'$ & '+', '.join(cs)+r' \\' for label,cs in partition_rows)
-    (OUT/'corner_partitions.tex').write_text(tex+'\n')
 
     # Build compatibility directly from exposed faces after physical rotations.
     fits=[]
