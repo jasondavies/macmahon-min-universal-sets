@@ -1,6 +1,10 @@
-# The Ten Minimum Universal Sets of MacMahon Cubes
+# The ten minimum universal sets of MacMahon cubes
 
-Paper and Lean formalization by Jason Davies, developed with AI assistance.
+Author: Jason Davies. GPT-6-Astra (OpenAI), used through Codex, developed the
+classification proof, computations, Lean formalisation and manuscript under the
+author's direction. Opus 5.5 (Anthropic), used through Claude Code, contributed
+to paper review.
+
 Repository: [jasondavies/macmahon-min-universal-sets](https://github.com/jasondavies/macmahon-min-universal-sets).
 The URL is the intended public repository; this package does not publish it.
 
@@ -23,8 +27,9 @@ labels A–F are not the six face colours.
 The classification resolves the conjectures stated by Johnson and Roldán
 ([2024, Conjectures 4 and 8](https://arxiv.org/abs/2407.13208v1)) and extends the
 classification to arbitrary multiplicities. The lower bound twelve is prior work
-of [Haraguchi](https://arxiv.org/abs/1408.3696v2). Independent human expert review
-and a comprehensive publication-priority check remain outstanding.
+of [Haraguchi](https://arxiv.org/abs/1408.3696v2). Automated checks are not
+independent human peer review. The literature search was limited; publication
+priority has not been established by a comprehensive review.
 
 ## Build and verification
 
@@ -152,6 +157,7 @@ cube result and does not import that workspace.
 
 Apache License 2.0; see [LICENSE](LICENSE). Cited sources and dependencies retain
 their own licenses. The paper, formalization and supporting computation were
-produced with OpenAI Codex under the author's direction. Detailed provenance,
-review status and the distinction between formal and computational claims are
-recorded in [formalization.yaml](formalization.yaml).
+produced by GPT-6-Astra (OpenAI), used through Codex, under the author's direction.
+Opus 5.5 (Anthropic), used through Claude Code, contributed to paper review.
+Detailed provenance, review status and the distinction between formal and
+computational claims are recorded in [formalization.yaml](formalization.yaml).
