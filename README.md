@@ -19,8 +19,6 @@ labels A–F are not the six face colours.
 - [Main Lean results](MacMahon/Theorems.lean) and [physical-model interface](MacMahon/Submission.lean).
 - [Independent statement surface](Challenge.lean), [proof entry point](Solution.lean), and [comparator configuration](comparator.json).
 - [Provenance, scope and AI disclosure](formalization.yaml).
-- Existing visualization work remains under `viz/`; `notes.txt` and `viz_prompt.md`
-  are historical planning documents and can contain superseded verification status.
 
 The classification resolves the conjectures stated by Johnson and Roldán
 ([2024, Conjectures 4 and 8](https://arxiv.org/abs/2407.13208v1)) and extends the
