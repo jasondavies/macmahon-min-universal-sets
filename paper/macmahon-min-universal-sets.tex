@@ -29,7 +29,7 @@ symmetric multiplicity matrix with row and column sums two; corner coverage
 then forces two disjoint triangles in Conway's tableau. The written proof
 is elementary and requires no exhaustive search. The classification and its
 discrete geometric interpretation are formalised in Lean~4. Exhaustive
-computation provides an independent check and additional target-count
+computation provides a separate check and additional target-count
 distributions.
 \end{abstract}
 
@@ -50,14 +50,19 @@ varieties, and exhibited one universal collection of that size
 sets and conjectured their completeness \cite[Theorem~3 and Conjectures~4
 and~8]{JR}. Our contribution is an elementary completeness proof, including
 the exclusion of repeats at the minimum, and its Lean formalisation.
+We also answer the computational questions in \cite[Section~6]{JR}: for
+sets of nine, ten and eleven distinct varieties the maximum target counts
+are respectively 9, 20 and 22, and thirteen is the smallest set size
+that permits exactly 29 targets.
 
 Following the exposition of Conway's tableau in \cite[Section~3]{B2017},
 label its entries by ordered pairs $ij$ of distinct elements of
-$L=\{A,B,C,D,E,F\}$; $ij$ corresponds to the paper's upper/lower-case name
+$L=\{A,B,C,D,E,F\}$; $ij$ corresponds to that paper's upper/lower-case name
 such as $Ab$. These tableau labels are distinct from the face-colour labels
 $1,\ldots,6$. At each vertex, the three incident face colours define an
 \emph{oriented corner type}: an ordered triple modulo cyclic permutation,
-using a consistent handedness. Reversing the order gives a different type.
+read clockwise when viewed from outside the cube, as in \cite{JR}.
+Reversing the order gives a different type.
 Each cube has eight corners, and there are $2\binom63=40$ types in total.
 
 \begin{lemma}[Corner--directed-triangles correspondence]
@@ -113,7 +118,7 @@ fixed face-colour labels of \cite{JR}, modulo cyclic permutation.}
 \end{table}
 
 The standard corner-sharing rule \cite[Lemma~2.7]{B2008}, in tableau form
-\cite[Propositions~1--2 and Property~2]{H}, follows from
+\cite[Propositions~1--2 and Properties~1--2]{H}, follows from
 Lemma~\ref{lem:corner-triangles}: two distinct varieties $ij$ and $uv$ share
 no corner exactly when
 $i=u$, $j=v$, or $(u,v)=(j,i)$. In every other case they share two corners.
@@ -163,8 +168,9 @@ A universal collection of size twelve consists of one copy of every directed
 edge within each of two disjoint triples of tableau labels.
 \end{lemma}
 \begin{proof}
-The row bound gives $r_i\le\lfloor8/3\rfloor=2$. As the six row sums total
-twelve, all equal two. The same holds for the columns. If $a_{ij}=0$, the
+Universality supplies eight usable cubes for each target, so
+Lemma~\ref{lem:row-bound} applies and gives $r_i\le\lfloor8/3\rfloor=2$.
+As the six row sums total twelve, all equal two. The same holds for the columns. If $a_{ij}=0$, the
 first inequality now gives $4+a_{ji}\le4$, so $a_{ji}=0$. Thus support is
 symmetric.
 
@@ -182,7 +188,7 @@ a 4-cycle and a double-copy pair, or three double-copy pairs. All except
 two triangles are bipartite with parts of size three. Choose these parts
 as the two triples defining a corner type. Every directed edge of that
 corner lies within a part, whereas every selected variety joins the parts.
-Thus the collection contains no copy of that corner type. A target having
+Thus no cube in the collection has that corner type. A target having
 that corner cannot be built, contradicting universality. Only two triangles
 remain, and their arc multiplicities are all one.
 \end{proof}
@@ -274,7 +280,7 @@ Only the two-triangle type remains, with one copy of each arc, and
 Lemma~\ref{lem:sufficiency} proves it universal.
 \end{proof}
 
-The six-cycle inventory in Figure~\ref{fig:supports} shows why condition~(2)
+The six-cycle collection in Figure~\ref{fig:supports} shows why condition~(2)
 is needed. Its row and column sums are two and $a_{ij}=a_{ji}$, so target
 $ij$ has $12-(r_i+c_j-2a_{ij}+a_{ji})=8+a_{ij}\ge8$ usable cubes.
 Thus condition~(1) holds, but the four corners associated with its balanced
@@ -287,7 +293,8 @@ distribution in \cite[Table~2]{JR} for all
 $\binom{30}{8}=5,852,925$ eight-cube sets.
 Two algorithms implement Haraguchi's criteria: bipartite matching
 \cite[Proposition~3]{H} and the tree-component test
-\cite[Proposition~4]{H}. The latter uses a compatibility multigraph on all
+\cite[Proposition~4]{H}. The two feasibility tests share the subset
+enumerator and tableau. The latter test uses a compatibility multigraph on all
 eight target corners, including isolated vertices. Each usable non-target
 physical cube is an edge joining its two compatible corners; parallel
 edges are allowed. Here cubes are edges and corners are vertices, whereas
@@ -300,14 +307,19 @@ components is at most the number of target copies. The subset enumeration
 precomputes feasibility for all $2^{20}$ subsets of the twenty usable
 non-target varieties for each target, and uses no symmetry reduction.
 
-Independent geometric checks generate the 24 proper rotations, 30 varieties
+Separate geometric checks generate the 24 proper rotations, 30 varieties
 and 40 corner types from face-colour permutations. They verify the tableau,
 the directed-triangle correspondence and physical placements for all
 300 minimum-set--target pairs. A separate enumeration of the 70 simple
 2-regular graphs gives 60 six-cycles, each building 18 targets, and the ten
-universal triangle-pair sets. The geometric checks also recover the single
-colour-permutation orbit observed in \cite[Section~6]{JR}; its stabilizer
-has order $6!/10=72$.
+universal triangle-pair sets.
+
+The single colour-permutation orbit observed in \cite[Section~6]{JR} also
+follows from the classification. Colour permutations induce the full
+symmetric group $S_6$ on the six tableau labels \cite[Lemma~3.1 and
+Corollary~3.3]{B2017}, which acts transitively on unordered partitions into
+two triples. The stabiliser of a partition has order $2(3!)^2=72$, since
+it may permute each triple and interchange the two triples.
 
 For sets of distinct varieties the exhaustive target-count ranges are:
 \[
@@ -326,17 +338,20 @@ about the maxima for sizes nine, ten and eleven and the possibility of
 building exactly 29 targets. The earlier distributions for sizes nine
 through twelve used random samples of 20,000 sets each; our ranges are
 exhaustive. These target-count bounds rely on the complete enumeration.
-Full histograms, example sets, source code and checkers are in the repository.
+Full histograms, example sets, source code and checkers are in the
+accompanying repository.\footnote{\url{https://github.com/jasondavies/macmahon-min-universal-sets}}
 
 \section{Formal verification and reproducibility}
-The Lean~4 development accompanies this manuscript at
-\url{https://github.com/jasondavies/macmahon-min-universal-sets}.
-It uses Lean~4 \cite{Lean4} and mathlib \cite{mathlib}, pinned to
+The accompanying repository includes the formalisation in Lean~4
+\cite{Lean4} and mathlib \cite{mathlib}, pinned to
 versions 4.35.0 and v4.35.0 respectively. The main results are
 \lean{MacMahon.minimum_size}, \lean{MacMahon.physical_exactly_ten},
 and \lean{MacMahon.physical_iff_two_triangles}.
 
 An inventory records a natural-number multiplicity for each tableau entry.
+The stored face-colour representatives use the face order
+$+x,-x,+y,-y,+z,-z$, with $+x,+y,+z$ interpreted as a left-handed frame
+so that the stored corner triples follow the clockwise convention above.
 A construction assigns eight distinct physical copies to the eight positions,
 with proper rotations matching the exposed faces. Lean proves that the
 rotation table consists exactly of determinant-positive signed-axis
@@ -358,17 +373,19 @@ itself is not trusted. The target-count enumerations
 are outside the formalisation, and Corollary~\ref{cor:twelve-criterion}
 has a written proof but no separate Lean statement.
 
-The Palomar interface separates ten independent statements in
-\texttt{Challenge.lean}, which imports only mathlib, from completed proofs
-in \texttt{Solution.lean}. The comparator checks statement equality,
-permitted axioms and kernel acceptance. Reproduction commands and local
+The development is packaged for the comparator of the Palomar registry.
+Ten independent statements in
+\texttt{Challenge.lean}, which imports only mathlib, are separated from
+completed proofs in \texttt{Solution.lean}. The comparator checks statement
+equality, permitted axioms and proof acceptance by Lean's kernel and the
+independent kernels NanoDa and con-ron. Reproduction commands and local
 verification records are in the repository; local verification does not
 constitute registry acceptance.
 
 \paragraph{AI assistance and review status.}
 This manuscript, the computational investigation and the Lean development
-were produced with OpenAI Codex under the author's direction. Independent
-human expert review and publication priority beyond the cited sources remain
+were produced with GPT-6-Astra (OpenAI), used through Codex, under the
+author's direction. Independent human expert review and publication priority beyond the cited sources remain
 outstanding.
 
 \begin{thebibliography}{9}

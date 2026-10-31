@@ -57,8 +57,8 @@
     "README.md": "d69b6e54207baecdc173eff935184566667a4cda79f7fee02c544bc15076c945",
     "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
     "Makefile": "230dc16a4e7cec7bb71054c6a60953c26915d1340bd5b3ee3d208dad86d9b028",
-    "paper/macmahon-min-universal-sets.tex": "42c49704d33ff694e9949b14ce881c0da1b60a5238c5d518a906b63d924264a4",
-    "paper/macmahon-min-universal-sets.pdf": "201a9ee215dba622a1fcc1059bf476c5dfe29c13f49f22347c85d945bfd2ab77",
+    "paper/macmahon-min-universal-sets.tex": "99f5bdbb6901ac7af405950b18c544bee12a9042212048cceaeedb888f36da34",
+    "paper/macmahon-min-universal-sets.pdf": "cbc9090fd25ec63a7ae2c7c19b9a561dd1a9060da1b2310ed8dfd2d0a6cfb977",
     "scripts/check-package.py": "02efc864ca798477ee5114c3a485b64e2a69e71aa3cefe3c6dde019e8bcf4fb5",
     "scripts/check.sh": "7d1beb7752e7be1582459e4e2265518bd7c6963ab23b918038cb615c03a2bddd",
     "scripts/generate_lean_data.py": "b49e52cbe970701dd5d70a89c2f9b7e49007d04720f09edb31bc5391b41e4ef7",
@@ -216,5 +216,19 @@
       "con_ron_declarations": 8962
     },
     "scope": "Lean proof cleanup only. Challenge statements and generated modules unchanged; paper and exhaustive enumeration checks were not rerun."
+  },
+  "paper_comment_revision": {
+    "verified_at_utc": "2026-10-31T23:08:10.812095+00:00",
+    "baseline_commit": "5b49f513895f379da2f6a7f47a29a5556628564b",
+    "changes": [
+      "Named GPT-6-Astra (OpenAI), used through Codex, in the disclosure.",
+      "Specified clockwise corner order and the left-handed interpretation of stored coordinate axes.",
+      "Clarified usable-cube hypothesis, collection terminology, attribution and computational contributions.",
+      "Disclosed shared enumerator and tableau; described the checks as separate.",
+      "Added the S6 transitivity and stabiliser argument with the tableau-action reference.",
+      "Moved the accompanying repository URL to a footnote and explained the Palomar comparator kernels."
+    ],
+    "paper_build": "make paper passed; 6 pages; no warnings, underfull or overfull boxes",
+    "scope": "Paper revisions only; Lean proofs and enumeration data unchanged. No new claim of exhaustive multiset verification."
   }
 }
