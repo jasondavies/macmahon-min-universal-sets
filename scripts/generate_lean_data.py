@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+"""Emit finite Lean constants; all mathematical claims are checked by Lean."""
+import json
+from pathlib import Path
+from verify_cubes import corners
+root=Path(__file__).resolve().parents[1]
+g=json.loads((root/'results/cubes/geometry.json').read_text())
+cs=sorted({c for cube in g['cubes'].values() for c in corners(tuple(cube))})
+ids={c:i for i,c in enumerate(cs)}
+def vec(x):return '!['+', '.join(vec(y) if isinstance(y,list) else str(y) for y in x)+']'
+faces=[]; ats=[]; sets=[]
+for i in range(6):
+ fr=[];ar=[];sr=[]
+ for j in range(6):
+  name=chr(65+i)+chr(97+j)
+  f=g['cubes'].get(name,[0]*6)
+  a=[ids[c] for c in corners(tuple(f))] if i!=j else [0]*8
+  fr.append(f);ar.append(a);sr.append('['+', '.join(map(str,sorted(a)))+']' if i!=j else '[]')
+ faces.append(fr);ats.append(ar);sets.append(sr)
+partitions=[]
+import itertools
+for pair in itertools.combinations(range(1,6),2):
+ p={0,*pair};partitions.append(p)
+wins=[[[int(i!=j and ((i in p)==(j in p))) for j in range(6)] for i in range(6)] for p in partitions]
+text='''module
+
+public import Mathlib
+
+@[expose] public section
+namespace MacMahon
+abbrev Label := Fin 6
+abbrev Pair := Label × Label
+abbrev Corner := Fin 40
+abbrev Slot := Fin 8
+abbrev Inventory := Pair → ℕ
+'''
+text+='def cornerAt : Label → Label → Slot → Corner := '+vec(ats)+'\n'
+text+='def cornerList : Label → Label → List Corner := '+vec(sets)+'\n'
+text+='def faceColours : Label → Label → Fin 6 → Fin 7 := '+vec(faces)+'\n'
+text+='def exposedFaces : Slot → Fin 3 → Fin 6 := '+vec(g['exposed_faces'])+'\n'
+text+='def rotations : Fin 24 → Fin 6 → Fin 6 := '+vec(g['rotations_destination_to_source'])+'\n'
+text+='def winningMatrix : Fin 10 → Label → Label → ℕ := '+vec(wins)+'\n'
+text+='def winner (b : Fin 10) : Inventory := fun p => winningMatrix b p.1 p.2\n'
+# One oriented corner per partition, with support contained in its winner.
+cover=[]
+for p in partitions:
+ names={chr(65+i)+chr(97+j) for i in p for j in p if i!=j}|{chr(65+i)+chr(97+j) for i in range(6) if i not in p for j in range(6) if j not in p and i!=j}
+ for c in cs:
+  support={n for n,cube in g['cubes'].items() if c in corners(tuple(cube))}
+  if support<=names:cover.append(ids[c]);break
+text+='def partitionCorner : Fin 10 → Corner := '+vec(cover)+'\n'
+# Supply injective physical-slot witnesses for every winning set and target.
+w=json.loads((root/'results/cubes/universal_witnesses.json').read_text())
+byset={frozenset(row['cubes']):row for row in w}
+choices=[]
+for p in partitions:
+ names=frozenset(chr(65+i)+chr(97+j) for i in range(6) for j in range(6) if i!=j and ((i in p)==(j in p)))
+ row=byset[names]; choices.append([[['('+str(ord(x[0][0])-65)+', '+str(ord(x[0][1])-97)+')' for x in row['targets'][chr(65+i)+chr(97+j)]] if i!=j else ['(0, 0)']*8 for j in range(6)] for i in range(6)])
+text+='def witness : Fin 10 → Label → Label → Slot → Pair := '+vec(choices)+'\n'
+text+='end MacMahon\n'
+(root/'MacMahon/Data.lean').write_text(text)

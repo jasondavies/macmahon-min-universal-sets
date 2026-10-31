@@ -1,0 +1,273 @@
+\pdfoutput=1
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=26mm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,citecolor=blue,
+  pdftitle={The ten minimum universal sets of MacMahon cubes},pdfauthor={Jason Davies}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\C}{\mathcal C}
+\emergencystretch=2em
+\newcommand{\lean}[1]{\nolinkurl{#1}}
+\makeatletter\g@addto@macro\UrlBreaks{\do\_}\makeatother
+\title{The ten minimum universal sets of MacMahon cubes}
+\author{Jason Davies\thanks{\href{mailto:jason@jasondavies.com}{\nolinkurl{jason@jasondavies.com}}}}
+\date{31 October 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+We classify universal collections of twelve six-coloured MacMahon cubes,
+without requiring internal face matching. A row-sum bound in Conway's tableau
+forces a symmetric matrix with every row and column sum equal to two.
+Corner coverage then forces two disjoint triangles. This proves the
+ten-set uniqueness conjecture stated by Johnson and Rold\'an, and also
+excludes additional minimum collections containing repeated cube varieties.
+The argument is elementary; exhaustive computation is used only as a check
+and to obtain additional target-count distributions. The minimum-size theorem,
+the complete classification and their discrete geometric interpretation are
+formalised in Lean~4.
+\end{abstract}
+
+\noindent\textbf{Status and transparency.} This research manuscript and its
+Lean formalisation were developed with AI assistance under the author's
+direction. The formal proofs have been checked by Lean; independent human
+expert review and publication priority beyond the cited sources remain
+outstanding. Details of the proof interface and AI involvement appear below.
+
+\section{Conventions and tableau facts}
+There are thirty rotational varieties of cubes whose six faces have six
+different colours. A collection is \emph{universal} if eight of its physical
+cubes can build a $2\times2\times2$ model of every target variety. Interior
+face colours need not match. Repeated varieties are allowed in the theorem;
+the conjecture in \cite{JR} concerns sets of distinct varieties.
+
+Label Conway's tableau by ordered pairs $ij$ of distinct elements of
+$L=\{A,B,C,D,E,F\}$; $ij$ corresponds to the paper's upper/lower-case name
+such as $Ab$. Each cube has eight oriented corner types. A corner type is
+an ordered triple of face colours modulo cyclic permutation, with a fixed
+handedness. There are forty such types.
+
+We use the following finite description of the standard tableau. A corner
+type corresponds to a partition of $L$ into two triples, with a directed
+3-cycle on each triple. Its six incident cube varieties are precisely the
+six directed edges of these cycles. All ten partitions and all four choices
+of cycle directions occur. This can be verified from Table~3 of \cite{JR};
+Table~\ref{tab:corners} below groups that table by the underlying partition.
+The cube $ij$ has exactly the eight corner types containing the arc $i\to j$.
+This also gives a compact, purely finite model for the corner incidence.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{ll}\toprule
+Partition & Four oriented corner types \\\midrule
+$ABC\mid DEF$ & 256, 143, 134, 265 \\
+$ABD\mid CEF$ & 465, 132, 123, 456 \\
+$ABE\mid CDF$ & 345, 126, 162, 354 \\
+$ABF\mid CDE$ & 235, 164, 146, 253 \\
+$ACD\mid BEF$ & 364, 125, 152, 346 \\
+$ACE\mid BDF$ & 356, 142, 124, 365 \\
+$ACF\mid BDE$ & 153, 246, 264, 135 \\
+$ADE\mid BCF$ & 165, 243, 234, 156 \\
+$ADF\mid BCE$ & 136, 254, 245, 163 \\
+$AEF\mid BCD$ & 263, 145, 154, 236 \\
+\bottomrule\end{tabular}
+\caption{The corner types associated with each pair of triples. Directions
+are recovered from the six cube names containing the corner in the standard
+tableau. Corner numbers use the colour labels of \cite{JR}.}
+\label{tab:corners}
+\end{table}
+
+Two distinct varieties $ij$ and $uv$ share no corner exactly when
+$i=u$, $j=v$, or $(u,v)=(j,i)$. In every other case they share two corners.
+Indeed, two distinct arcs in the same directed 3-cycle must form a directed
+path; this fixes that cycle, leaving two orientations of the other one.
+For two disjoint arcs, the remaining two labels can be assigned to their
+respective triples in two ways, each determining both cycle directions.
+Common tails, common heads, and reversed arcs cannot coexist in directed
+3-cycles. The target itself shares all eight corners.
+
+Consequently each cube is usable for exactly 21 targets. Also, assigning
+eight distinct physical cubes to the eight target corner types is both
+necessary and sufficient: matching an oriented corner permits a proper
+rotation matching the three exposed faces. There are no internal constraints.
+
+\section{Necessity}
+Let $a_{ij}$ be the number of copies of variety $ij$ in a collection of size
+$K$, with $a_{ii}=0$. Write $r_i=\sum_j a_{ij}$ and $c_j=\sum_i a_{ij}$.
+
+\begin{lemma}[Row bound]
+For a universal collection,
+\[
+ r_i+c_j-2a_{ij}+a_{ji}\le K-8\qquad(i\ne j),
+ \qquad 3r_i\le 4K-40,\quad 3c_i\le4K-40.
+\]
+\end{lemma}
+\begin{proof}
+For target $ij$, the unusable cubes are those in its row apart from $ij$,
+those in its column apart from $ij$, and the copies of $ji$. These classes
+are disjoint and total $r_i+c_j-2a_{ij}+a_{ji}$. At least eight cubes must
+remain usable, proving the first inequality. Summing over the five
+$j\ne i$ gives
+\[
+5r_i+(K-c_i)-2r_i+c_i=3r_i+K\le5(K-8).
+\]
+The column bound follows by the analogous sum.
+\end{proof}
+
+\begin{lemma}
+A universal collection of size twelve consists of one copy of every directed
+edge within each of two disjoint triples of tableau labels.
+\end{lemma}
+\begin{proof}
+The row bound gives $r_i\le\lfloor8/3\rfloor=2$. As the six row sums total
+twelve, all equal two. The same holds for the columns. If $a_{ij}=0$, the
+first inequality now gives $4+a_{ji}\le4$, so $a_{ji}=0$. Thus support is
+symmetric.
+
+Consider the undirected support graph on $L$. Every vertex has degree one
+or two. If a vertex $i$ has degree one, with neighbour $j$, then $a_{ij}=2$;
+column $i$ and support symmetry give $a_{ji}=2$, so this is an isolated
+double-copy pair. Every degree-two component is a simple cycle, with one
+copy in each direction on every edge.
+
+On six vertices the only possibilities are two triangles, a 6-cycle,
+a 4-cycle and a double-copy pair, or three double-copy pairs. All except
+two triangles are bipartite with parts of size three. Choose these parts
+as the two triples defining a corner type. Every directed edge of that
+corner lies within a part, whereas every selected variety joins the parts.
+Thus the collection contains no copy of that corner type. A target having
+that corner cannot be built, contradicting universality. Only two triangles
+remain, and their arc multiplicities are all one.
+\end{proof}
+
+\section{Sufficiency and classification}
+\begin{lemma}
+For any partition $L=P\sqcup Q$ into triples, the twelve directed edges
+within $P$ and $Q$ form a universal set.
+\end{lemma}
+\begin{proof}
+Fix target $ij$. Its corners are indexed by a third label $k\notin\{i,j\}$
+and either direction of the cycle on the complementary triple. The first
+cycle is $i\to j\to k\to i$.
+
+Suppose $i,j\in P$, and write $P=\{i,j,p\}$. For each $k\in Q$, the
+complementary cycle contains one arc between the two labels of $Q\setminus
+\{k\}$. Assign that cube to the corner. As $k$ and the cycle direction vary,
+these are the six distinct directed edges within $Q$. The remaining two
+corners have $k=p$; fill them with $jp$ and $pi$, both of which belong to
+both corner types. This gives eight distinct cubes.
+
+Now suppose $i\in P$, $j\in Q$, with $P\setminus\{i\}=\{u,v\}$ and
+$Q\setminus\{j\}=\{x,y\}$. For the four corners with $k\in\{u,v\}$,
+the usable selected varieties are $ki$ and one of $xy,yx$. Their incidence
+is that of the four edges of a $K_{2,2}$ with its four vertices. Orient this
+4-cycle cyclically to assign a different incident variety to each corner.
+For the other four corners, the analogous four varieties are $jx,jy,uv,vu$.
+The two groups of four varieties are disjoint, completing the construction.
+\end{proof}
+
+\begin{theorem}
+The minimum size of a universal collection is twelve. Exactly ten labelled
+collections attain that size, even when repeated varieties are permitted.
+They are the two-triangle sets described above. In particular, Conjectures
+4 and 8 of Johnson and Rold\'an hold.
+\end{theorem}
+\begin{proof}
+Each physical cube is usable for 21 targets, so universality requires
+$21K\ge30\cdot8=240$, hence $K\ge12$. This lower bound is due to
+Haraguchi \cite{H}. The preceding lemmas give necessity and sufficiency at
+twelve. There are $\frac12\binom63=10$ unordered partitions into triples.
+\end{proof}
+
+\section{Computational checks and additional results}
+An exhaustive enumeration of all $\binom{30}{12}=86,493,225$ subsets returns
+exactly the ten sets above. The implementation also reproduces the published
+distribution for all $\binom{30}{8}=5,852,925$ eight-cube sets.
+Two different feasibility algorithms are used: bipartite matching, and a
+graph-component test. In the latter, every usable non-target cube is an
+edge joining its two compatible target corners. A connected tree component
+has deficit one; a component containing a cycle has deficit zero. Thus a
+target is buildable precisely when the number of tree components does not
+exceed the number of available target copies (zero or one in the subset
+enumerations). The table-based implementation precomputes all $2^{20}$ edge
+subsets for each target. No symmetry reduction is used in the exhaustive
+subset loops.
+
+Independent geometric code generates all 24 proper cube rotations, all
+30 varieties and all 40 corner types from face-colour permutations. It checks
+the tableau, the directed-triangle correspondence, and explicit physical
+placements for all 300 set--target pairs. Independently enumerating the 70
+simple 2-regular graphs gives 60 six-cycles, each building 18 targets, and
+the ten universal triangle-pair sets. The ten sets form one colour-permutation
+orbit, with stabilizer order 72.
+
+For sets of distinct varieties the exhaustive target-count ranges are:
+\[
+\begin{array}{c|rrrrrr}
+\text{set size}&8&9&10&11&12&13\\\hline
+\text{minimum targets}&0&0&1&2&8&10\\
+\text{maximum targets}&5&9&20&22&30&30
+\end{array}
+\]
+No set of size at most twelve builds exactly 29 targets. At size thirteen,
+827,250 sets build exactly 29 targets and 53,100 are universal.
+These enumeration results address further questions in Section 6 of
+\cite{JR}; unlike the uniqueness theorem, their upper bounds rely on the
+complete computational enumeration. Full histograms, example masks,
+source code and independent checkers accompany this draft.
+
+\section{Formal verification and reproducibility}
+The Lean~4 development accompanies this manuscript at
+\url{https://github.com/jasondavies/macmahon-min-universal-sets}.
+It is pinned to Lean~4.35.0 and mathlib~v4.35.0. The main results are
+\lean{MacMahon.minimum_size}, \lean{MacMahon.physical_exactly_ten},
+and \lean{MacMahon.physical_iff_two_triangles}.
+
+An inventory is a natural-number multiplicity for each ordered pair of
+six tableau labels, with zero diagonal. A construction is an injective
+assignment of eight physical copies to the eight positions, each with a
+proper rotation matching its three exposed faces. The formalisation proves
+that the rotation table is exactly the set of determinant-positive
+signed-axis permutations, and that the thirty representatives and their
+rotations give all 720 assignments of six distinct colours to six faces,
+without duplication. It also proves the equivalence of corner matching
+and exposed-face matching.
+
+The inequalities and symmetry argument are proved for arbitrary natural
+multiplicities. The remaining classification is checked through 130
+arithmetic proof branches, split across fifteen modules. All finite checks
+use kernel reduction, rather than a trusted external computation. Explicit
+witnesses certify all 300 minimum-set--target constructions. The proof
+library contains no added axioms or unfinished proofs; guarded audits allow
+only Lean's standard propositional extensionality, classical choice and
+quotient axioms. The larger target-count enumerations above are not included
+in these formal theorems.
+
+For Palomar verification, \texttt{Challenge.lean} imports only mathlib and
+states ten advertised results with intentional proof holes, independently
+of the proof library. \texttt{Solution.lean} imports the completed proofs.
+The comparator configuration checks equality of the statements, their
+permitted axioms, and kernel acceptance. Local verification outputs and
+reproduction commands are recorded in the repository; a successful local
+check is distinct from registry acceptance.
+
+\paragraph{AI disclosure.}
+OpenAI Codex assisted with the investigation, compiled solvers, geometric
+checks, proof argument, Lean development, manuscript and submission packaging,
+under the author's direction. No claim of independent human expert review
+is made here. The proof generators are not trusted components: their output
+must be accepted by Lean's kernel.
+
+\begin{thebibliography}{9}
+\bibitem{JR} I.~Johnson and E.~Rold\'an,
+\emph{Solution Numbers for Eight Blocks to Madness Puzzle},
+arXiv:2407.13208v1 (2024). \url{https://arxiv.org/abs/2407.13208}.
+\bibitem{H} K.~Haraguchi,
+\emph{On a generalization of ``Eight Blocks to Madness'' puzzle},
+Discrete Mathematics \textbf{339} (2016), 1400--1409.
+Preprint arXiv:1408.3696v2. \url{https://arxiv.org/abs/1408.3696}.
+\end{thebibliography}
+\end{document}

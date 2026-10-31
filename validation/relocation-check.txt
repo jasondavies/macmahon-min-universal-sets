@@ -1,0 +1,15 @@
+formalization.yaml contains no TEMPLATE values
+⚠ [9077/9081] Replayed Challenge
+warning: Challenge.lean:70:8: declaration uses `sorry`
+warning: Challenge.lean:74:8: declaration uses `sorry`
+warning: Challenge.lean:77:8: declaration uses `sorry`
+warning: Challenge.lean:79:8: declaration uses `sorry`
+warning: Challenge.lean:83:8: declaration uses `sorry`
+warning: Challenge.lean:86:8: declaration uses `sorry`
+warning: Challenge.lean:89:8: declaration uses `sorry`
+warning: Challenge.lean:92:8: declaration uses `sorry`
+warning: Challenge.lean:95:8: declaration uses `sorry`
+warning: Challenge.lean:100:8: declaration uses `sorry`
+Build completed successfully (9081 jobs).
+Generated 130 matrix branches in 15 modules.
+PASS: 10 independent challenge statements; no proof holes; 17 reproducible generated modules

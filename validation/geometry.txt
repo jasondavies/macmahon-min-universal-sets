@@ -1,0 +1,1 @@
+PASS: geometric regeneration, all 40 corner incidences, 70 necessary candidates, 300 explicit target solutions, colour orbit, 12 enumerations, 190 histogram examples

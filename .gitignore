@@ -1,0 +1,15 @@
+.lake/
+build/
+__pycache__/
+*.olean
+*.ilean
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+viz/node_modules/
+viz/dist/
+viz/test-results/
+viz/playwright-report/

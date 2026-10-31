@@ -1,0 +1,3 @@
+{
+"method":"graph tree components","k":9,"complete":true,"prefix_limit":32768,"checked":14307150,"target_tests":429214500,"threads":8,"preparation_seconds":0.295975,"search_seconds":0.0336727,"names":["Ab","Ac","Ad","Ae","Af","Ba","Bc","Bd","Be","Bf","Ca","Cb","Cd","Ce","Cf","Da","Db","Dc","De","Df","Ea","Eb","Ec","Ed","Ef","Fa","Fb","Fc","Fd","Fe"],"universal_masks":[],"histogram":[253320,1532160,3348210,4054240,3136320,1485240,437040,54960,5640,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"example_masks":[7548,1951,3535,1503,511,1471,1279,1982,5373,29596,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"first_rejected_target_counts":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+}

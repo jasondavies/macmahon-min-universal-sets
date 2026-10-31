@@ -1,0 +1,13 @@
+⚠ [9071/9081] Replayed Challenge
+warning: Challenge.lean:70:8: declaration uses `sorry`
+warning: Challenge.lean:74:8: declaration uses `sorry`
+warning: Challenge.lean:77:8: declaration uses `sorry`
+warning: Challenge.lean:79:8: declaration uses `sorry`
+warning: Challenge.lean:83:8: declaration uses `sorry`
+warning: Challenge.lean:86:8: declaration uses `sorry`
+warning: Challenge.lean:89:8: declaration uses `sorry`
+warning: Challenge.lean:92:8: declaration uses `sorry`
+warning: Challenge.lean:95:8: declaration uses `sorry`
+warning: Challenge.lean:100:8: declaration uses `sorry`
+✔ [9073/9081] Built MacMahon.Geometry (118s)
+Build completed successfully (9081 jobs).
