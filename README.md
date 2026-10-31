@@ -1,65 +1,165 @@
 # The ten minimum universal sets of MacMahon cubes
 
-Author: Jason Davies. GPT-6-Astra (OpenAI), used through Codex, developed the
-classification proof, computations, Lean formalisation and manuscript under the
-author's direction. Opus 5.5 (Anthropic), used through Claude Code, contributed
-to paper review.
+Author: Jason Davies.
 
-Repository: [jasondavies/macmahon-min-universal-sets](https://github.com/jasondavies/macmahon-min-universal-sets).
-The URL is the intended public repository; this package does not publish it.
+A MacMahon cube has six different face colours, one on each face. There are
+30 varieties up to rotation; reflections remain distinct. A collection is
+*universal* if, for every variety, eight cubes can be selected and assembled
+into a 2×2×2 model with that variety's exterior colouring. Internal faces need
+not match. A collection may contain repeated varieties.
 
-A universal inventory of six-coloured MacMahon cubes can build every target
-variety as a 2×2×2 cube. The minimum size is **12**, and exactly **ten labelled
-inventories** attain it, even when repetitions are allowed. They contain one
-copy of every directed edge within each part of a 3+3 partition of Conway's
-six tableau labels: two disjoint triangles. At the minimum there are no repeats.
+The minimum collection size was already known to be **twelve**. We prove that
+exactly **ten labelled collections** attain this minimum, even when repeated
+varieties are allowed. None of these minimum collections has repeats. The count
+ten keeps the face-colour labels fixed, rather than identifying collections
+under colour permutations.
 
-Only exterior faces must match the target. Internal face colours are unrestricted.
-Proper rotations identify cube varieties; reflections do not. The count ten uses
-fixed face-colour labels, not equivalence under colour permutations. The tableau
-labels A–F are not the six face colours.
+Conway's tableau names each variety by an ordered pair of distinct labels from
+A–F. These labels are distinct from the six face colours. To obtain a minimum
+collection, split the six labels into two triples and take one copy of each
+variety whose two labels lie in the same triple. For example, `ABC | DEF`
+selects the six ordered pairs within `ABC` and the six within `DEF`. Drawing
+each pair as a directed edge gives **two disjoint triangles**, with both
+directions present on every edge. The ten unordered partitions into triples
+give exactly the ten minimum collections.
+
+The classification resolves Johnson and Roldán's
+[Conjectures 4 and 8](https://arxiv.org/abs/2407.13208v1) and extends their
+conjectured classification to collections with repeated varieties. The minimum size
+and an attaining construction are prior work of
+[Haraguchi](https://arxiv.org/abs/1408.3696v2).
 
 - [Paper (PDF)](paper/macmahon-min-universal-sets.pdf) and [LaTeX](paper/macmahon-min-universal-sets.tex).
-- [Main Lean results](MacMahon/Theorems.lean) and [physical-model interface](MacMahon/Submission.lean).
-- [Independent statement surface](Challenge.lean), [proof entry point](Solution.lean), and [comparator configuration](comparator.json).
+- [Main Lean results](MacMahon/Theorems.lean), [physical model](MacMahon/Definitions.lean), and [connection to corner matching](MacMahon/Geometry.lean).
+- [Independent theorem statements](Challenge.lean) and [completed proof entry point](Solution.lean).
 - [Provenance, scope and AI disclosure](formalization.yaml).
 
-The classification resolves the conjectures stated by Johnson and Roldán
-([2024, Conjectures 4 and 8](https://arxiv.org/abs/2407.13208v1)) and extends the
-classification to arbitrary multiplicities. The lower bound twelve is prior work
-of [Haraguchi](https://arxiv.org/abs/1408.3696v2). Automated checks are not
-independent human peer review. The literature search was limited; publication
-priority has not been established by a comprehensive review.
+## Proof organization and scope
+
+The proof records the number of copies of each variety in a six-by-six matrix.
+Every target needs at least eight cubes that can fill one of its corner
+positions. At total size twelve, the resulting inequalities force every row
+and column sum to be two and the matrix
+to be symmetric. The paper classifies the possible support graphs and uses
+corner coverage to exclude all but two disjoint triangles. An explicit
+construction proves that each triangle pair is universal.
+
+Lean uses the same inequalities, then relabels the matrix to reduce its first
+row to two possibilities: a doubled edge or two distinct neighbours. Corner
+coverage excludes the doubled edge and forces the neighbours to close a
+triangle; the degree equations determine the complementary triangle.
+Sufficiency is checked using explicit constructions for all ten collections
+and thirty targets.
+
+All modules below are in [`MacMahon/`](MacMahon/):
+
+| Part of the proof | Modules |
+| --- | --- |
+| Finite domains and geometric tables | `Types.lean`, `Data.lean` |
+| Proper rotations and all 720 face-colour assignments | `Rotations.lean`, `Colourings.lean` |
+| Equivalence of corner matching and physical face matching | `Geometry.lean` |
+| Tableau incidence facts and necessary counting conditions | `Incidence.lean`, `Counting.lean` |
+| Minimum bound, row and column sums, and symmetry | `Arithmetic.lean`, `Structure.lean` |
+| The ten candidates and their complete classification | `Partitions.lean`, `Classification.lean` |
+| The 300 construction certificates and their verification | `WitnessData.lean`, `Witness.lean` |
+| Main theorems and submission interface | `Theorems.lean`, `Submission.lean` |
+
+`Definitions.lean` defines inventories, corner matching and physical
+constructions. An inventory records the number of physical copies of each
+variety. Every construction assigns eight distinct copies to the eight
+positions, with a proper rotation chosen for each copy. The geometry is modeled
+using the six coordinate face directions and finite rotation tables.
+`Model.lean` is a compatibility import for the counting, geometry and witness
+interfaces.
+
+The paper also reports exhaustive target-count histograms for sets of 8–13
+distinct varieties, including the minimum size for exactly 29 targets.
+**Those computational results are not Lean theorems.** Saved data are in
+[`results/cubes/`](results/cubes/); reproduction commands appear below.
 
 ## Build and verification
 
-Install [Elan](https://github.com/leanprover/elan), then run:
+For the Lean checks, install [Elan](https://github.com/leanprover/elan), Make,
+Python 3 and Ruby. Run these commands from the repository root:
 
 ```sh
 lake exe cache get
 make check
-make paper
 ```
 
 Lean 4.35.0 and mathlib v4.35.0 are pinned in `lean-toolchain` and
-`lake-manifest.json`. `make check` checks module headers and metadata, builds the
-library and independent challenge, compares the axiom audit with its recorded
-output, and checks that the data generator reproduces both generated modules.
-`validation/` contains only the axiom audit source and its expected output.
-Build and comparator logs are generated when checks run, rather than committed;
-CI logs and manual preflight reports are associated with the checked revision.
-Ruby, Python 3 and Lean are needed; building the paper also needs LaTeX/latexmk.
-The intentional `sorry` warnings belong only to `Challenge.lean`.
+`lake-manifest.json`. The verification and build commands serve different purposes:
+
+| Command | Purpose | Additional requirements |
+| --- | --- | --- |
+| `make check` | Build Lean, audit axioms, check metadata and reproduce generated Lean sources | None beyond those above |
+| `make comparator` | Compare the proofs against independent theorem statements and check them with Lean, NanoDa and con-ron | Linux and bubblewrap |
+| `make paper` | Rebuild the paper PDF (optional) | LaTeX and latexmk |
+
+`make check` also checks module headers and compares the axiom audit with its
+expected output in `validation/`. The intentional `sorry` warnings belong only
+to `Challenge.lean`, which states the results that the comparator checks against
+the completed proofs. `make check` does not run the comparator.
 
 `MacMahon.lean` contains guarded axiom audits. The proof library contains no
 `sorry`, `admit`, custom axioms or `native_decide`; only `propext`,
 `Classical.choice` and `Quot.sound` are permitted. Finite computations use
 `decide +kernel`. The arithmetic tactics produce proof terms for the kernel.
 
-## Palomar submission surface
+`validation/` contains the axiom audit source and its expected output. Build
+and comparator output is printed when checks run; logs are not committed.
+CI logs and manual preflight reports are associated with the checked revision.
 
-The layout follows [PalomarTemplate](https://github.com/PalomarRegistry/PalomarTemplate)
-and the author's `euclid-uniform-processes` project.
+## Reproduce the computational artifacts
+
+To check the saved results and regenerate the geometric data and construction
+certificates, run:
+
+```sh
+python3 scripts/verify_cubes.py
+```
+
+This checks the geometric model, candidate collections, saved histogram
+accounting and example constructions. It reads the saved enumeration results;
+it does not rerun the exhaustive enumeration. It rewrites the derived files
+`geometry.json`, `corner_partitions.tex`, `universal_witnesses.json`,
+`extremal_witnesses.json` and `verification.json` under `results/cubes/`.
+
+To rerun both enumeration algorithms for every reported size, 8–13, install a
+C++20 compiler with OpenMP support (the Makefile defaults to `g++`), then run:
+
+```sh
+make cubes
+for k in 8 9 10 11 12 13; do
+  python3 scripts/run_cube_experiment.py --k "$k" --threads 8 --histogram --selftest \
+    --output "results/cubes/k${k}.json" || exit 1
+  python3 scripts/run_cube_experiment.py --k "$k" --threads 8 --histogram \
+    --matching-tables --output "results/cubes/k${k}-matching.json" || exit 1
+done
+python3 scripts/verify_cubes.py
+```
+
+Adjust `--threads` to suit the machine. For just the twelve-cube classification,
+use `for k in 12; do` instead. Each run replaces its output JSON file and appends
+a provenance record to `results/cubes/experiments.jsonl`. Graph and matching
+runs share the outer enumeration and tableau; the geometric checker is separate.
+
+After regenerating the geometric data and construction certificates, regenerate
+and check the Lean constants with:
+
+```sh
+make regenerate
+make check
+```
+
+Regeneration writes `MacMahon/Data.lean` and `MacMahon/WitnessData.lean`.
+Lean checks the correctness of their finite tables and construction witnesses;
+the generator is not a trusted proof component.
+
+## Palomar submission interface
+
+The submission layout follows
+[PalomarTemplate](https://github.com/PalomarRegistry/PalomarTemplate).
 
 `Challenge.lean` imports **only Mathlib** and defines its own physical model and
 finite geometric tables. It states ten advertised results with intentional proof
@@ -81,83 +181,36 @@ The comparator targets are:
 | Every six-colour face assignment is represented | `face_assignment_coverage` |
 | Its variety and rotation are unique | `face_assignment_unique` |
 
-Run the local comparator on Linux with bubblewrap installed:
+Run the comparator with:
 
 ```sh
 make comparator
 ```
 
-Local verification does not constitute Palomar registry acceptance.
-
-The helper uses the pinned toolchain's Lean checker, NanoDa and con-ron, matching
-Palomar's independent-kernel setup. Dependencies under `.lake/packages` must be
-real directories rather than symlinks outside the checkout. The submitted
-`comparator.json` intentionally does not set registry-owned external-kernel options.
-The helper injects those options only into a temporary local configuration.
+The helper uses the pinned toolchain's Lean checker, NanoDa and con-ron.
+Dependencies under `.lake/packages` must be real directories rather than
+symlinks outside the checkout. The helper adds the independent-kernel settings
+to a temporary configuration; the submitted `comparator.json` leaves these
+registry-owned settings unset.
 
 The [manual preflight workflow](.github/workflows/palomar-preflight.yml) invokes
-Palomar's reusable verifier at the same immutable revision used by the reference
-project. It is advisory, does not submit the result, and has not been dispatched
-by preparing these files. Before submitting, publish the repository, commit the
-reviewed snapshot, run preflight on that exact commit and use its full 40-character
-SHA in the [Palomar submission form](https://submit.palomar-registry.org).
-Author/maintainer declarations must be made by the responsible submitter.
-
-## Proof organization and scope
-
-`Types.lean` defines the finite domains; `Data.lean` supplies geometric constants. `Rotations.lean` checks proper rotations;
-`Colourings.lean` proves that the 30 varieties × 24 rotations account for all 720
-face assignments. `Geometry.lean` equates corner compatibility with face matching.
-`WitnessData.lean` supplies construction certificates; `Witness.lean` checks all
-300 minimum-set–target constructions. `Geometry.lean` also relates corner-based
-builds to physical constructions, independently of the witness certificates.
-
-`Counting.lean` derives necessary usability and corner-cover conditions.
-`Arithmetic.lean` proves the inequalities, minimum bound and row and column sums
-for arbitrary natural multiplicities; `Structure.lean` proves symmetry.
-`Partitions.lean` defines the ten candidates directly as two triangles.
-`Classification.lean` uses label permutations to reduce the first row to two
-local configurations: a doubled edge or two distinct neighbours. The partition-cover
-inequalities exclude the former and close a triangle in the latter; the degree
-equations then determine the entire inventory. `Theorems.lean` assembles the
-classification and exact count. `Model.lean` remains a compatibility import for
-the separated counting, geometry and witness interfaces.
-
-The model is discrete cube geometry, not a formalization of Euclidean solids in
-real coordinates. Every physical construction uses an injective assignment of
-physical copies, with an independent proper rotation at each position.
-
-The paper also reports exhaustive target-count histograms for inventory sizes
-8–13, including the minimum size for exactly 29 targets. **Those computational
-results are not Lean theorems.** Their saved data and independent checker are
-included under `results/cubes/` and `scripts/`. No square-tiling conjecture is
-claimed here.
-
-## Reproduce the computational artifacts
-
-```sh
-make cubes
-python3 scripts/run_cube_experiment.py --k 12 --threads 8 --histogram --selftest \
-  --output results/cubes/k12.json
-python3 scripts/run_cube_experiment.py --k 12 --threads 8 --histogram \
-  --matching-tables --output results/cubes/k12-matching.json
-python3 -O scripts/verify_cubes.py
-make regenerate
-make check
-```
-
-The C++ solver uses OpenMP. Graph and matching runs share the outer enumeration
-and tableau; the geometric checker is separate. Regeneration writes the finite
-geometric tables and construction witnesses, whose correctness is then checked
-by Lean. The generator is not a trusted proof component. The original exploration lives
-in the separate `macmahon` workspace; this repository is self-contained for the
-cube result and does not import that workspace.
+Palomar's reusable verifier at a pinned revision. Before submitting, commit the
+reviewed snapshot, make it available on GitHub, run preflight on that exact
+commit and use its full 40-character SHA in the
+[Palomar submission form](https://submit.palomar-registry.org).
+Preflight does not submit the project, and local verification does not constitute
+registry acceptance. Author/maintainer declarations must be made by the
+responsible submitter.
 
 ## License and disclosure
 
 Apache License 2.0; see [LICENSE](LICENSE). Cited sources and dependencies retain
-their own licenses. The paper, formalization and supporting computation were
-produced by GPT-6-Astra (OpenAI), used through Codex, under the author's direction.
-Opus 5.5 (Anthropic), used through Claude Code, contributed to paper review.
-Detailed provenance, review status and the distinction between formal and
-computational claims are recorded in [formalization.yaml](formalization.yaml).
+their own licenses. GPT-6-Astra (OpenAI), used through Codex, developed the
+classification proof, computations, Lean formalisation and manuscript under the
+author's direction. Opus 5.5 (Anthropic), used through Claude Code, contributed
+to paper review.
+
+Automated checks are not independent human peer review. The literature search
+was limited; publication priority has not been established by a comprehensive
+review. Detailed provenance, review status and the distinction between formal
+and computational claims are recorded in [formalization.yaml](formalization.yaml).
