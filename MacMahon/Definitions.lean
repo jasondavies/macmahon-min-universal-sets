@@ -29,12 +29,14 @@ def Builds (a : Inventory) (t : Pair) : Prop :=
   ∃ f : Slot ↪ Stock a, ∀ k, HasCorner (f k).1 (cornerAt t.1 t.2 k)
 def PhysicalBuilds (a : Inventory) (t : Pair) : Prop :=
   ∃ f : Slot ↪ Stock a, ∀ k, ∃ r : Fin 24, FaceFits t (f k).1 k r
+def PhysicalUniversal (a : Inventory) : Prop :=
+  ∀ i j : Label, i ≠ j → PhysicalBuilds a (i,j)
 def Universal (a : Inventory) : Prop := ∀ i j : Label, i ≠ j → Builds a (i,j)
 def DiagonalZero (a : Inventory) : Prop := ∀ i : Label, a (i,i) = 0
-noncomputable def total (a : Inventory) : ℕ := ∑ p, a p
-noncomputable def row (a : Inventory) (i : Label) : ℕ := ∑ j, a (i,j)
-noncomputable def col (a : Inventory) (j : Label) : ℕ := ∑ i, a (i,j)
-noncomputable def usableCount (a : Inventory) (t : Pair) : ℕ :=
+def total (a : Inventory) : ℕ := ∑ p, a p
+def row (a : Inventory) (i : Label) : ℕ := ∑ j, a (i,j)
+def col (a : Inventory) (j : Label) : ℕ := ∑ i, a (i,j)
+def usableCount (a : Inventory) (t : Pair) : ℕ :=
   ∑ p : Pair, if Usable t p then a p else 0
 
 

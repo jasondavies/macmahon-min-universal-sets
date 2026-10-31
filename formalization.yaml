@@ -93,8 +93,10 @@ fidelity:
     labels, not equivalence under colour permutations. Cube varieties identify
     proper rotations, not reflections. Only exterior faces must match. The
     geometric model is finite signed-axis geometry, not a development of Euclidean
-    solids in real coordinates. The written graph classification is implemented
-    by 130 exhaustive arithmetic proof branches after the symbolic row-sum reduction.
+    solids in real coordinates. After the symbolic row-sum reduction, the classification uses label
+    permutations to normalize the first row. Arithmetic proofs exclude a doubled
+    edge and force two neighbours to close a triangle; the degree equations then
+    determine both triangles. No generated classification branches are used.
 review:
   status: "self-assessed; not independently reviewed by a human expert"
   reviewers: ["OpenAI Codex: AI proof development and review"]

@@ -170,4 +170,17 @@ theorem face_corner_equivalence : ∀ i j : Label, i ≠ j → ∀ p : Pair, ∀
   · exact face_corner_54
   · exact (hij rfl).elim
 
+/-- Corner matching is exactly matching the exposed faces by proper rotations. -/
+
+theorem builds_iff_physical (a : Inventory) (i j : Label) (h : i ≠ j) :
+    Builds a (i,j) ↔ PhysicalBuilds a (i,j) := by
+  constructor <;> rintro ⟨f,hf⟩ <;> refine ⟨f, ?_⟩ <;> intro k
+  · exact (face_corner_equivalence i j h (f k).1 k).mp (hf k)
+  · exact (face_corner_equivalence i j h (f k).1 k).mpr (hf k)
+
+theorem universal_iff_physical (a : Inventory) : Universal a ↔ PhysicalUniversal a := by
+  constructor <;> intro h i j hij
+  · exact (builds_iff_physical a i j hij).mp (h i j hij)
+  · exact (builds_iff_physical a i j hij).mpr (h i j hij)
+
 end MacMahon

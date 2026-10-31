@@ -3,17 +3,13 @@ module
 public import MacMahon.Arithmetic
 public import MacMahon.Classification
 public import MacMahon.Colourings
-public import MacMahon.Partitions
+public import MacMahon.Geometry
+public import MacMahon.Witness
 
 @[expose] public section
 namespace MacMahon
 set_option maxHeartbeats 0
 set_option maxRecDepth 100000
-
-lemma winner_properties : ∀ b : Fin 10,
-    DiagonalZero (winner b) ∧ total (winner b) = 12 ∧ ∀ p, winner b p ≤ 1 := by
-  unfold DiagonalZero total
-  decide +kernel
 
 /-- Complete classification, including inventories with repeated physical cubes. -/
 theorem classification (a : Inventory) (hz : DiagonalZero a) (ht : total a = 12) :
@@ -49,14 +45,6 @@ noncomputable def minimumEquiv : Fin 10 ≃ MinimumInventory :=
 theorem exactly_ten : Nat.card MinimumInventory = 10 := by
   rw [← Nat.card_congr minimumEquiv]
   simp
-
-def PhysicalUniversal (a : Inventory) : Prop :=
-  ∀ i j : Label, i ≠ j → PhysicalBuilds a (i,j)
-
-theorem universal_iff_physical (a : Inventory) : Universal a ↔ PhysicalUniversal a := by
-  constructor <;> intro h i j hij
-  · exact (builds_iff_physical a i j hij).mp (h i j hij)
-  · exact (builds_iff_physical a i j hij).mpr (h i j hij)
 
 theorem physical_minimum (a : Inventory) (hz : DiagonalZero a)
     (h : PhysicalUniversal a) : 12 ≤ total a :=

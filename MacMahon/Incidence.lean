@@ -1,6 +1,6 @@
 module
 
-public import MacMahon.Definitions
+public import MacMahon.Partitions
 
 @[expose] public section
 set_option maxRecDepth 100000
@@ -18,6 +18,10 @@ theorem usable_rule : ∀ i j : Label, i ≠ j → ∀ p : Pair,
     Usable (i,j) p ↔ p.1 ≠ p.2 ∧
       (p = (i,j) ∨ (p.1 ≠ i ∧ p.2 ≠ j ∧ p ≠ (j,i))) := by decide +kernel
 
+
+
+theorem partition_corner_support : ∀ b : Fin 10, ∀ p : Pair,
+    HasCorner p (partitionCorner b) → winner b p = 1 := by decide +kernel
 
 
 end MacMahon

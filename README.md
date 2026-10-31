@@ -41,7 +41,7 @@ make paper
 Lean 4.35.0 and mathlib v4.35.0 are pinned in `lean-toolchain` and
 `lake-manifest.json`. `make check` checks module headers and metadata, builds the
 library and independent challenge, compares the axiom audit with its recorded
-output, and checks that the generators reproduce all 17 generated modules.
+output, and checks that the data generator reproduces both generated modules.
 Ruby, Python 3 and Lean are needed; building the paper also needs LaTeX/latexmk.
 The intentional `sorry` warnings belong only to `Challenge.lean`.
 
@@ -101,16 +101,23 @@ Author/maintainer declarations must be made by the responsible submitter.
 
 ## Proof organization and scope
 
-`Data.lean` supplies finite constants. `Rotations.lean` checks proper rotations;
+`Types.lean` defines the finite domains; `Data.lean` supplies geometric constants. `Rotations.lean` checks proper rotations;
 `Colourings.lean` proves that the 30 varieties × 24 rotations account for all 720
 face assignments. `Geometry.lean` equates corner compatibility with face matching.
-`Witness.lean` checks all 300 minimum-set–target constructions.
+`WitnessData.lean` supplies construction certificates; `Witness.lean` checks all
+300 minimum-set–target constructions. `Geometry.lean` also relates corner-based
+builds to physical constructions, independently of the witness certificates.
 
-`Arithmetic.lean` derives the usability inequalities, minimum bound and row and
-column sums for arbitrary natural multiplicities. `Structure.lean` proves
-symmetry. `ClassificationCases/` checks all 130 symmetric degree-two matrices
-in 15 independently compiled modules. `Partitions.lean` expresses the answer
-as two triangles, and `Theorems.lean` assembles the classification and exact count.
+`Counting.lean` derives necessary usability and corner-cover conditions.
+`Arithmetic.lean` proves the inequalities, minimum bound and row and column sums
+for arbitrary natural multiplicities; `Structure.lean` proves symmetry.
+`Partitions.lean` defines the ten candidates directly as two triangles.
+`Classification.lean` uses label permutations to reduce the first row to two
+local configurations: a doubled edge or two distinct neighbours. The partition-cover
+inequalities exclude the former and close a triangle in the latter; the degree
+equations then determine the entire inventory. `Theorems.lean` assembles the
+classification and exact count. `Model.lean` remains a compatibility import for
+the separated counting, geometry and witness interfaces.
 
 The model is discrete cube geometry, not a formalization of Euclidean solids in
 real coordinates. Every physical construction uses an injective assignment of
@@ -137,8 +144,8 @@ make check
 
 The C++ solver uses OpenMP. Graph and matching runs share the outer enumeration
 and tableau; the geometric checker is separate. Regeneration writes the finite
-tables, witnesses and proof branches, whose correctness is then checked by Lean.
-The generators are not trusted proof components. The original exploration lives
+geometric tables and construction witnesses, whose correctness is then checked
+by Lean. The generator is not a trusted proof component. The original exploration lives
 in the separate `macmahon` workspace; this repository is self-contained for the
 cube result and does not import that workspace.
 

@@ -17,7 +17,6 @@ paper:
 
 regenerate:
 	python3 scripts/generate_lean_data.py
-	python3 scripts/generate_lean_classification.py
 
 cubes: build/cubes
 

@@ -1,6 +1,6 @@
 module
 
-public import MacMahon.Model
+public import MacMahon.Counting
 
 @[expose] public section
 namespace MacMahon
@@ -57,15 +57,20 @@ theorem universal_minimum (a : Inventory) (hz : DiagonalZero a) (h : Universal a
   norm_num [Fin.forall_fin_succ, Fin.sum_univ_succ] at hb ht
   omega
 
+/-- If a finite sum attains the sum of pointwise upper bounds, all bounds are tight. -/
+lemma eq_two_of_le_of_sum (f : Label → ℕ) (hb : ∀ i, f i ≤ 2)
+    (hs : ∑ i, f i = 12) : ∀ i, f i = 2 := by
+  have hh : (∑ i, f i) = ∑ _i : Label, 2 := by simpa using hs
+  intro i
+  exact (Finset.sum_eq_sum_iff_of_le (fun j _ => hb j)).mp hh i (Finset.mem_univ i)
+
 lemma rows_two (a : Inventory) (hz : DiagonalZero a) (h : Universal a)
     (ht : total a = 12) : ∀ i, row a i = 2 := by
   have hb : ∀ i, row a i ≤ 2 := by
     intro i
     have := universal_row_bound a hz h i
     omega
-  have hs := total_rows a
-  intro i
-  fin_cases i <;> norm_num [Fin.forall_fin_succ, Fin.sum_univ_succ] at hb hs ⊢ <;> omega
+  exact eq_two_of_le_of_sum (row a) hb ((total_rows a).symm.trans ht)
 
 lemma cols_two (a : Inventory) (hz : DiagonalZero a) (h : Universal a)
     (ht : total a = 12) : ∀ i, col a i = 2 := by
@@ -73,9 +78,7 @@ lemma cols_two (a : Inventory) (hz : DiagonalZero a) (h : Universal a)
     intro i
     have := universal_col_bound a hz h i
     omega
-  have hs := total_cols a
-  intro i
-  fin_cases i <;> norm_num [Fin.forall_fin_succ, Fin.sum_univ_succ] at hb hs ⊢ <;> omega
+  exact eq_two_of_le_of_sum (col a) hb ((total_cols a).symm.trans ht)
 
 lemma reverse_bound (a : Inventory) (hz : DiagonalZero a) (h : Universal a)
     (ht : total a = 12) : ∀ i j, a (j,i) ≤ 2*a (i,j) := by
