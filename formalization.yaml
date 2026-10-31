@@ -66,7 +66,7 @@ status:
 automation:
   methods:
     - method: agent
-      models: ["GPT-6 (OpenAI)"]
+      models: ["GPT-6-Astra (OpenAI)"]
       framework: "Codex"
       tool_setup: >-
         Under the author's direction, investigated the conjecture, developed compiled
