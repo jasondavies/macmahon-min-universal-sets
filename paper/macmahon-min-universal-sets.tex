@@ -51,8 +51,8 @@ varieties. Face-colour labels remain fixed throughout.
 
 Haraguchi proved that twelve is the minimum size of a universal collection,
 allowing repeats, and exhibited one attaining it
-\cite[Lemma~2 and Theorem~4]{H}. Johnson and Rold\'an found ten such sets
-\cite[Theorem~3]{JR}. Their Conjecture~4 asserts that these are all the
+\cite[Lemma~2 and Theorem~4]{H}. Johnson and Rold\'an found nine further
+sets, bringing the known total to ten \cite[Theorem~3]{JR}. Their Conjecture~4 asserts that these are all the
 minimum sets; Conjecture~8 describes them as two triangles in Conway's
 tableau. This tableau labels varieties by ordered pairs $ij$ of distinct
 labels in $L=\{A,B,C,D,E,F\}$, as specified in Section~\ref{sec:tableau}.
@@ -82,13 +82,11 @@ Each cube has six different face colours, labelled $1,\ldots,6$.
 There are $6!/24=30$ rotational varieties. The ten minimum sets are counted
 separately even though they form one colour-permutation orbit.
 
-Following the exposition of Conway's tableau in \cite[Section~3]{B2017},
-label its entries by ordered pairs $ij$ of distinct elements of
-$L=\{A,B,C,D,E,F\}$; $ij$ corresponds to that paper's upper/lower-case name
-such as $Ab$. These tableau labels are distinct from the face-colour labels
-$1,\ldots,6$. At each vertex, the three incident face colours define an
+Our notation $ij$ corresponds to the conventional upper/lower-case cube
+name, such as $Ab$ \cite[Section~3]{B2017}. The tableau labels in $L$ are
+distinct from the face-colour labels $1,\ldots,6$. At each vertex, the three incident face colours define an
 \emph{oriented corner type}: an ordered triple modulo cyclic permutation,
-read clockwise when viewed from outside the cube, as in \cite{JR}.
+read clockwise when viewed from outside the cube.
 Reversing the order gives a different type.
 Each cube has eight corners, and there are $2\binom63=40$ types in total.
 
@@ -365,9 +363,11 @@ universal triangle-pair sets.
 
 The single colour-permutation orbit observed in \cite[Section~6]{JR} also
 follows from the classification. Colour permutations induce the full
-symmetric group $S_6$ on the six tableau labels \cite[Lemma~3.1 and
-Corollary~3.3]{B2017}, which acts transitively on unordered partitions into
-two triples. The stabiliser of a partition has order $2(3!)^2=72$, since
+symmetric group $S_6$ on the six tableau rows \cite[Lemma~3.1 and
+Corollary~3.3]{B2017}. Since colour permutations commute with reflection,
+which sends $ij$ to $ji$, rows and columns are permuted identically.
+Thus the action on entries is $ij\mapsto\pi(i)\pi(j)$, and $S_6$ acts
+transitively on unordered partitions into two triples. The stabiliser of a partition has order $2(3!)^2=72$, since
 it may permute each triple and interchange the two triples.
 
 For sets of distinct varieties the exhaustive target-count ranges are:
@@ -396,7 +396,7 @@ The accompanying repository includes a formalisation using Lean~4.35.0
 \lean{MacMahon.minimum_size}, \lean{MacMahon.physical_exactly_ten},
 and \lean{MacMahon.physical_iff_two_triangles}.
 
-An inventory records a natural-number multiplicity for each tableau entry.
+In Lean, an inventory records a natural-number multiplicity for each tableau entry.
 The stored face-colour representatives are those in Table~\ref{tab:cubes},
 with the same face order and handedness.
 A construction assigns eight distinct physical copies to the eight positions,
@@ -433,10 +433,10 @@ accompanying repository; local verification does not constitute registry
 acceptance.
 
 \section*{Declaration of AI-generated research and review}
-The human author initiated and directed this research. GPT-6-Astra (OpenAI),
+GPT-6-Astra (OpenAI),
 used through Codex, developed the classification proof and computational
 investigation, wrote the Lean formalisation, and wrote and revised the
-manuscript. Opus~5.5 (Anthropic), used through Claude Code, contributed to
+manuscript. Claude Opus~5.5 (Anthropic), used through Claude Code, contributed to
 paper review.
 
 The formal claims are checked by Lean and the additional kernels described
@@ -445,6 +445,10 @@ reproducible checks. These automated checks are not independent human peer
 review. The literature search was limited to the cited sources and related
 material located during development; publication priority has not been
 established by a comprehensive review.
+
+The human author initiated and directed the research and accepts
+responsibility for the content of this paper and the accuracy of this
+disclosure.
 
 \begin{thebibliography}{9}
 \raggedright

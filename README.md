@@ -212,10 +212,13 @@ responsible submitter.
 Apache License 2.0; see [LICENSE](LICENSE). Cited sources and dependencies retain
 their own licenses. GPT-6-Astra (OpenAI), used through Codex, developed the
 classification proof, computations, Lean formalisation and manuscript under the
-author's direction. Opus 5.5 (Anthropic), used through Claude Code, contributed
+author's direction. Claude Opus 5.5 (Anthropic), used through Claude Code, contributed
 to paper review.
 
 Automated checks are not independent human peer review. The literature search
 was limited; publication priority has not been established by a comprehensive
 review. Detailed provenance, review status and the distinction between formal
 and computational claims are recorded in [formalization.yaml](formalization.yaml).
+
+The human author initiated and directed the research and accepts responsibility
+for the content of the paper and the accuracy of its disclosure.

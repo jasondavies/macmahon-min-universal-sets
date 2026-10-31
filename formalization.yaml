@@ -79,7 +79,7 @@ automation:
         hardware: "local CPU; no GPU"
       prompting_notes: "The author requested a publishable research direction, efficient computation, and Lean formalization."
     - method: agent
-      models: ["Opus 5.5 (Anthropic)"]
+      models: ["Claude Opus 5.5 (Anthropic)"]
       framework: "Claude Code"
       tool_setup: >-
         Contributed to paper review under the author's direction.
@@ -92,7 +92,9 @@ automation:
   notes: >-
     GPT-6-Astra (OpenAI), used through Codex, developed the research argument,
     code, Lean proofs and manuscript under the human author's direction.
-    Opus 5.5 (Anthropic), used through Claude Code, contributed to paper review.
+    Claude Opus 5.5 (Anthropic), used through Claude Code, contributed to paper review.
+    The human author initiated and directed the research and accepts responsibility
+    for the content of the paper and the accuracy of its disclosure.
     This metadata does not assert independent human expert review or author
     endorsement of the conjecture's source. The ten intentional statement holes in Challenge.lean are excluded
     from proof-development counts. No native_decide is used.
@@ -115,7 +117,7 @@ review:
   status: "self-assessed; not independently reviewed by a human expert"
   reviewers:
     - "GPT-6-Astra (OpenAI), used through Codex: AI proof development and review"
-    - "Opus 5.5 (Anthropic), used through Claude Code: paper review"
+    - "Claude Opus 5.5 (Anthropic), used through Claude Code: paper review"
   notes: >-
     Reproduce the Lean build and guarded axiom audits with make check, and the
     local comparator with make comparator. CI logs and manual preflight reports
