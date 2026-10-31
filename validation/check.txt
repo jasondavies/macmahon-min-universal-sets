@@ -1,6 +1,6 @@
 bash scripts/check.sh
 formalization.yaml contains no TEMPLATE values
-⚠ [9054/9068] Replayed Challenge
+⚠ [9050/9068] Replayed Challenge
 warning: Challenge.lean:70:8: declaration uses `sorry`
 warning: Challenge.lean:74:8: declaration uses `sorry`
 warning: Challenge.lean:77:8: declaration uses `sorry`
@@ -11,16 +11,9 @@ warning: Challenge.lean:89:8: declaration uses `sorry`
 warning: Challenge.lean:92:8: declaration uses `sorry`
 warning: Challenge.lean:95:8: declaration uses `sorry`
 warning: Challenge.lean:100:8: declaration uses `sorry`
-✔ [9056/9068] Built MacMahon.Incidence (5.0s)
-✔ [9057/9068] Built MacMahon.Counting (2.1s)
-✔ [9058/9068] Built MacMahon.Witness (10s)
-✔ [9059/9068] Built MacMahon.Classification (15s)
-✔ [9060/9068] Built MacMahon.Rotations (19s)
-✔ [9061/9068] Built MacMahon.Colourings (1.8s)
-✔ [9062/9068] Built MacMahon.Arithmetic (15s)
-✔ [9063/9068] Built MacMahon.Theorems (1.7s)
-✔ [9064/9068] Built MacMahon (1.7s)
-✔ [9066/9068] Built MacMahon.Submission (1.7s)
-✔ [9067/9068] Built Solution (1.6s)
+✔ [9052/9068] Built MacMahon.Definitions (1.6s)
+✔ [9061/9068] Built MacMahon.Colourings (1.6s)
+✔ [9062/9068] Built MacMahon.Classification (7.8s)
+✔ [9063/9068] Built MacMahon.Theorems (1.6s)
 Build completed successfully (9068 jobs).
 PASS: 10 independent challenge statements; no proof holes; 2 reproducible generated modules

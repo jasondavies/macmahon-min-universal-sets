@@ -8,8 +8,6 @@ public import MacMahon.Witness
 
 @[expose] public section
 namespace MacMahon
-set_option maxHeartbeats 0
-set_option maxRecDepth 100000
 
 /-- Complete classification, including inventories with repeated physical cubes. -/
 theorem classification (a : Inventory) (hz : DiagonalZero a) (ht : total a = 12) :

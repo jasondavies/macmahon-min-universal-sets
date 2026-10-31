@@ -4,8 +4,6 @@ public import MacMahon.Data
 
 @[expose] public section
 
-set_option maxRecDepth 100000
-set_option maxHeartbeats 0
 namespace MacMahon
 open scoped BigOperators
 

@@ -4,8 +4,6 @@ public import MacMahon.Rotations
 
 @[expose] public section
 namespace MacMahon
-set_option maxHeartbeats 0
-set_option maxRecDepth 100000
 
 abbrev NonzeroColour := {c : Fin 7 // c ≠ 0}
 def colourEquiv : Fin 6 ≃ NonzeroColour where

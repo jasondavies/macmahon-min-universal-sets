@@ -94,29 +94,10 @@ private lemma classify_normalized (a : Inventory) (hz : DiagonalZero a)
   · exact (no_normalized_doubled_edge a hz hr hs hp hdouble).elim
   have h12 := normalized_triangle_closes a hz hr hs hp h01 h02
   clear hp
-  have s10 := hs 1 0
-  have s20 := hs 2 0
-  have s30 := hs 3 0
-  have s40 := hs 4 0
-  have s50 := hs 5 0
-  have s21 := hs 2 1
-  have s31 := hs 3 1
-  have s41 := hs 4 1
-  have s51 := hs 5 1
-  have s32 := hs 3 2
-  have s42 := hs 4 2
-  have s52 := hs 5 2
-  have s43 := hs 4 3
-  have s53 := hs 5 3
-  have s54 := hs 5 4
-  clear hs
-  norm_num [DiagonalZero, row, Fin.forall_fin_succ, Fin.sum_univ_succ] at hz hr
-  simp only [s10, s20, s30, s40, s50, s21, s31, s41, s51, s32, s42, s52, s43, s53, s54] at hr
-  rcases hz with ⟨z0, z1, z2, z3, z4, z5⟩
-  simp only [z0, z1, z2, z3, z4, z5, Nat.add_zero, Nat.zero_add] at hr
+  norm_num [DiagonalZero, row, Fin.forall_fin_succ, Fin.sum_univ_succ] at hz hr hs
   funext ⟨i, j⟩
   fin_cases i <;> fin_cases j <;>
-    norm_num [winner, twoTriangles, triple, s10, s20, s30, s40, s50, s21, s31, s41, s51, s32, s42, s52, s43, s53, s54, z0, z1, z2, z3, z4, z5] <;> omega
+    norm_num [winner, twoTriangles, triple] <;> omega
 
 /-- Complete classification using two local configurations, up to relabelling. -/
 lemma classify_degree_two (a : Inventory) (hz : DiagonalZero a)
