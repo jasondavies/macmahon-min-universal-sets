@@ -12,7 +12,7 @@
     "axiom_audit": "passed",
     "generated_modules_byte_reproduction": 17,
     "geometric_checker": "passed",
-    "paper_pdf": "passed; 5 pages; no overfull boxes"
+    "paper_pdf": "passed; 6 pages; no warnings, underfull or overfull boxes"
   },
   "comparator": {
     "command": "bash scripts/palomar/verify-comparator.sh",
@@ -71,8 +71,8 @@
     "README.md": "b65cb98baaefbe90f70f279ff48eafba8e363997c25097e6d6a87c1ad0d751bb",
     "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
     "Makefile": "94306c547b71743265daabd2fd8f43b8bcab7b385b7c07e4691a12b49b3fc8a8",
-    "paper/macmahon-min-universal-sets.tex": "1bc0d05af993445bc8685efd7b0e6959ddad2439f10449d2a4694e90f3eca82a",
-    "paper/macmahon-min-universal-sets.pdf": "b86ba54da7425d742bcb500cda0c24a25d65d8cdd153f4989e9c14a3e14ccfcc",
+    "paper/macmahon-min-universal-sets.tex": "ed4729b2ddf6cd9589a9083bc7e729b2bdd73a853c41d6aa33560400f7bba867",
+    "paper/macmahon-min-universal-sets.pdf": "7a6a9220aa7ef47b10362e5d8a2ed0c10ef8351e9125ed3bbbac1b1a12906744",
     "scripts/check-package.py": "54e1cb6b09939ac579eda84145052a006a4fbabfdfd582fd4bfea047911aa0c8",
     "scripts/check.sh": "7d1beb7752e7be1582459e4e2265518bd7c6963ab23b918038cb615c03a2bddd",
     "scripts/generate_lean_classification.py": "c910daef3a035cb7f16952ff7e6a3e0abcfc3d3908a8c4e8b3835b2447083cda",
@@ -83,7 +83,8 @@
     "scripts/run_cube_experiment.py": "9c3c042bc0a12c1e4058291b726ed61a3856c972ad20cc494fd31e1f9ea6d56d",
     "scripts/verify_cubes.py": "304d4ebd3f9ffad789adcfead21db38edbf92ba21265d0ff981852c6bfee3df2",
     ".github/workflows/ci.yml": "efdd5e337ceaa3707217f35210b92cb36c3cf46fb3b8c9e11502041b929dd202",
-    ".github/workflows/palomar-preflight.yml": "ef40a71f9431fc06265c7fb2c7eb5212916f6746389b12901a11e391e77da14e"
+    ".github/workflows/palomar-preflight.yml": "ef40a71f9431fc06265c7fb2c7eb5212916f6746389b12901a11e391e77da14e",
+    "paper/support-graphs.tex": "cf92d10853f9b246f6173bdad4d244a0978f977c7c4d4e41320f607ba4a42608"
   },
   "installation": {
     "directory": "/home/ttuser/macmahon-min-universal-sets",
@@ -106,5 +107,10 @@
     "paper_build": "make paper passed; 5 pages; no LaTeX warnings or overfull boxes",
     "bibliography": "All six entries cited; citation keys resolve; verified DOI and arXiv links added.",
     "scope": "Citation and notes review only. Existing concurrent Lean working-tree edits were neither modified nor revalidated here; earlier Lean/comparator records retain their original verification scope."
+  },
+  "paper_additions": {
+    "record": "validation/paper-additions.json",
+    "paper_build": "make paper passed; 6 pages; no warnings, underfull or overfull boxes",
+    "formal_scope": "New criterion proved in manuscript only; no separate Lean statement or comparator check added."
   }
 }

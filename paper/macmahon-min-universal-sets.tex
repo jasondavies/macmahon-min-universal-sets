@@ -4,6 +4,7 @@
 \usepackage{lmodern}
 \usepackage[a4paper,margin=26mm]{geometry}
 \usepackage{amsmath,amssymb,amsthm,booktabs,hyperref}
+\usepackage{tikz}
 \hypersetup{colorlinks=true,urlcolor=blue,citecolor=blue,
   pdftitle={The ten minimum universal sets of MacMahon cubes},pdfauthor={Jason Davies}}
 \newtheorem{theorem}{Theorem}
@@ -130,6 +131,7 @@ respective triples in two ways, each determining both cycle directions.
 Common tails, common heads, and reversed arcs cannot coexist in directed
 3-cycles. The target itself shares all eight corners.
 
+Call a cube \emph{usable} for a target when they share an oriented corner.
 Consequently each cube is usable for exactly 21 targets. Also, assigning
 eight distinct physical cubes to the eight target corner types is both
 necessary and sufficient: matching an oriented corner permits a proper
@@ -140,7 +142,9 @@ Let $a_{ij}$ be the number of copies of variety $ij$ in a collection of size
 $K$, with $a_{ii}=0$. Write $r_i=\sum_j a_{ij}$ and $c_j=\sum_i a_{ij}$.
 
 \begin{lemma}[Row bound]
-For a universal collection,
+\label{lem:row-bound}
+If every target has at least eight usable physical cubes in the collection,
+then
 \[
  r_i+c_j-2a_{ij}+a_{ji}\le K-8\qquad(i\ne j),
  \qquad 3r_i\le 4K-40,\quad 3c_i\le4K-40.
@@ -159,6 +163,7 @@ The column bound follows by the analogous sum.
 \end{proof}
 
 \begin{lemma}
+\label{lem:necessary-support}
 A universal collection of size twelve consists of one copy of every directed
 edge within each of two disjoint triples of tableau labels.
 \end{lemma}
@@ -185,8 +190,24 @@ that corner cannot be built, contradicting universality. Only two triangles
 remain, and their arc multiplicities are all one.
 \end{proof}
 
+For distinct varieties the double-copy cases cannot occur, leaving just
+the two support types illustrated in Figure~\ref{fig:supports}.
+\begin{figure}[htbp]
+\centering
+\input{support-graphs.tex}
+\caption{The two possible degree-two supports for twelve distinct varieties.
+Each undirected edge represents both cube varieties $ij$ and $ji$, hence
+six edges represent twelve cubes. Circles mark $\{A,B,C\}$ and squares
+mark $\{D,E,F\}$; these are tableau labels, not face colours. The left
+support misses all four corners for this partition (Table~\ref{tab:corners});
+the right support is universal. Repeated varieties allow the additional
+support types treated in the proof.}
+\label{fig:supports}
+\end{figure}
+
 \section{Sufficiency and classification}
 \begin{lemma}
+\label{lem:sufficiency}
 For any partition $L=P\sqcup Q$ into triples, the twelve directed edges
 within $P$ and $Q$ form a universal set.
 \end{lemma}
@@ -226,6 +247,31 @@ Each physical cube is usable for 21 targets, so universality requires
 $21K\ge30\cdot8=240$, hence $K\ge12$. This lower bound is due to
 Haraguchi \cite[Lemma~2]{H}. The preceding lemmas give necessity and sufficiency at
 twelve. There are $\frac12\binom63=10$ unordered partitions into triples.
+\end{proof}
+
+\begin{corollary}[Twelve-cube criterion]
+\label{cor:twelve-criterion}
+A collection of twelve physical cubes, with repeated varieties allowed,
+is universal if and only if both of the following hold:
+\begin{enumerate}
+\item Every target has at least eight usable cubes in the collection,
+counting physical copies.
+\item Every oriented corner type occurs on at least one cube in the
+collection.
+\end{enumerate}
+\end{corollary}
+\begin{proof}
+Universality supplies eight usable cubes for each target. Every oriented
+corner type belongs to some target, so it must occur in the collection.
+
+Conversely, condition~(1) gives the inequalities of
+Lemma~\ref{lem:row-bound}. At size twelve these force every row and column
+sum to equal two and the support to be symmetric, exactly as in the proof
+of Lemma~\ref{lem:necessary-support}. The same degree argument leaves the
+four support types listed there. Each bipartite type omits all four corners
+associated with its balanced bipartition, contradicting condition~(2).
+Only the two-triangle type remains, with one copy of each arc, and
+Lemma~\ref{lem:sufficiency} proves it universal.
 \end{proof}
 
 \section{Computational checks and additional results}
@@ -299,14 +345,17 @@ without duplication. It also proves the equivalence of corner matching
 and exposed-face matching.
 
 The inequalities and symmetry argument are proved for arbitrary natural
-multiplicities. The remaining classification is checked through 130
-arithmetic proof branches, split across fifteen modules. All finite checks
+multiplicities. For the remaining classification, label permutations normalize the first row
+to a doubled edge or two distinct neighbours. Arithmetic proofs exclude the
+doubled edge and force the neighbours to close a triangle; the degree equations
+then determine both triangles. All finite checks
 use kernel reduction, rather than a trusted external computation. Explicit
 witnesses certify all 300 minimum-set--target constructions. The proof
 library contains no added axioms or unfinished proofs; guarded audits allow
 only Lean's standard propositional extensionality, classical choice and
 quotient axioms. The larger target-count enumerations above are not included
-in these formal theorems.
+in these formal theorems. Corollary~\ref{cor:twelve-criterion} is derived
+in the written proof; it is not separately stated in the Lean interface.
 
 For Palomar verification, \texttt{Challenge.lean} imports only mathlib and
 states ten advertised results with intentional proof holes, independently
