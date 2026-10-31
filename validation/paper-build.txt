@@ -195,25 +195,21 @@ f/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/
 dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}]
 [2] (./support-graphs.tex) [3] [4] [5] [6] (./macmahon-min-universal-sets.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- )</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/ty
-pe1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></u
-sr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/p
-ublic/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/shar
-e/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm
-/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/f
-onts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb>
-</usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type
-1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr
-/share/texmf/fonts/type1/public/lm/lmtt9.pfb>
-Output written on macmahon-min-universal-sets.pdf (6 pages, 314415 bytes).
+)</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/typ
+e1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></us
+r/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/pu
+blic/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share
+/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/
+lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fo
+nts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb><
+/usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1
+/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/
+share/texmf/fonts/type1/public/lm/lmtt9.pfb>
+Output written on macmahon-min-universal-sets.pdf (6 pages, 315065 bytes).
 Transcript written on macmahon-min-universal-sets.log.
 Latexmk: Getting log file 'macmahon-min-universal-sets.log'
 Latexmk: Examining 'macmahon-min-universal-sets.fls'
 Latexmk: Examining 'macmahon-min-universal-sets.log'
-Latexmk: References changed.
 Latexmk: Log file says output to 'macmahon-min-universal-sets.pdf'
 Latexmk: applying rule 'pdflatex'...
 Rule 'pdflatex':  Reasons for rerun
@@ -415,7 +411,7 @@ nts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb><
 /usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1
 /public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/
 share/texmf/fonts/type1/public/lm/lmtt9.pfb>
-Output written on macmahon-min-universal-sets.pdf (6 pages, 314415 bytes).
+Output written on macmahon-min-universal-sets.pdf (6 pages, 315065 bytes).
 Transcript written on macmahon-min-universal-sets.log.
 Latexmk: Getting log file 'macmahon-min-universal-sets.log'
 Latexmk: Examining 'macmahon-min-universal-sets.fls'

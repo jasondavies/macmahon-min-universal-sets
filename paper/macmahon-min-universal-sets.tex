@@ -65,8 +65,8 @@ Each cube has eight corners, and there are $2\binom63=40$ types in total.
 The forty oriented corner types are in bijection with partitions of $L$
 into two triples, each equipped with a directed 3-cycle. The six cube
 varieties containing a given corner are exactly the six arcs of its two
-cycles. Equivalently, cube $ij$ contains a corner precisely when its cycles
-contain the arc $i\to j$.
+cycles. Equivalently, cube $ij$ contains a corner precisely when the corner's
+two cycles contain the arc $i\to j$.
 \end{lemma}
 \begin{proof}
 Table~\ref{tab:corners} records the correspondence explicitly. For a triple
@@ -224,7 +224,8 @@ both corner types. This gives eight distinct cubes.
 
 If $j\in Q$, write $P\setminus\{i\}=\{u,v\}$ and
 $Q\setminus\{j\}=\{x,y\}$. For the four corners with $k\in\{u,v\}$,
-the usable selected varieties are $ki$ and one of $xy,yx$. Their incidence
+the selected varieties containing each such corner are $ki$ and one of
+$xy,yx$. Their incidence
 is described by a $K_{2,2}$ with vertex classes $\{ui,vi\}$ and
 $\{xy,yx\}$. Here the four corners are the edges, and the four candidate
 cube varieties are the vertices: each corner joins its two candidates.
@@ -272,6 +273,12 @@ associated with its balanced bipartition, contradicting condition~(2).
 Only the two-triangle type remains, with one copy of each arc, and
 Lemma~\ref{lem:sufficiency} proves it universal.
 \end{proof}
+
+The six-cycle inventory in Figure~\ref{fig:supports} shows why condition~(2)
+is needed. Its row and column sums are two and $a_{ij}=a_{ji}$, so target
+$ij$ has $12-(r_i+c_j-2a_{ij}+a_{ji})=8+a_{ij}\ge8$ usable cubes.
+Thus condition~(1) holds, but the four corners associated with its balanced
+bipartition are absent.
 
 \section{Computational checks and additional results}
 An exhaustive enumeration of all $\binom{30}{12}=86,493,225$ subsets returns
@@ -345,8 +352,9 @@ the degree equations then determine the complementary triangle. Finite
 checks use kernel reduction, and explicit witnesses certify all 300
 minimum-set--target constructions. The proof library has no unfinished
 proofs or added axioms: audits permit only propositional extensionality,
-classical choice and quotient axioms. Generated proofs must pass the kernel;
-the generators themselves are not trusted. The target-count enumerations
+classical choice and quotient axioms. The generated tables and construction
+witnesses are certified by kernel-checked Lean proofs; the data generator
+itself is not trusted. The target-count enumerations
 are outside the formalisation, and Corollary~\ref{cor:twelve-criterion}
 has a written proof but no separate Lean statement.
 
