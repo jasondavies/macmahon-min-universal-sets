@@ -56,8 +56,8 @@
     "README.md": "d69b6e54207baecdc173eff935184566667a4cda79f7fee02c544bc15076c945",
     "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
     "Makefile": "230dc16a4e7cec7bb71054c6a60953c26915d1340bd5b3ee3d208dad86d9b028",
-    "paper/macmahon-min-universal-sets.tex": "ed4729b2ddf6cd9589a9083bc7e729b2bdd73a853c41d6aa33560400f7bba867",
-    "paper/macmahon-min-universal-sets.pdf": "7a6a9220aa7ef47b10362e5d8a2ed0c10ef8351e9125ed3bbbac1b1a12906744",
+    "paper/macmahon-min-universal-sets.tex": "b41001e9fbae8fa4112ec06c6faaa6ee496dbe813a7ff7fa2b2655da2e420ec3",
+    "paper/macmahon-min-universal-sets.pdf": "99710ab07e6746904adafbd37def828d66ec03447b7b634be32a19bb722c7dc6",
     "scripts/check-package.py": "02efc864ca798477ee5114c3a485b64e2a69e71aa3cefe3c6dde019e8bcf4fb5",
     "scripts/check.sh": "7d1beb7752e7be1582459e4e2265518bd7c6963ab23b918038cb615c03a2bddd",
     "scripts/generate_lean_data.py": "b49e52cbe970701dd5d70a89c2f9b7e49007d04720f09edb31bc5391b41e4ef7",
@@ -99,6 +99,20 @@
     "record": "validation/paper-additions.json",
     "paper_build": "make paper passed; 6 pages; no warnings, underfull or overfull boxes",
     "formal_scope": "New criterion proved in manuscript only; no separate Lean statement or comparator check added."
+  },
+  "exposition_revision": {
+    "verified_at_utc": "2026-10-31T22:33:21.008706+00:00",
+    "baseline_commit": "6333943",
+    "changes": [
+      "Defined universality in the abstract and distinguished collections from sets.",
+      "Explained isolated double-copy pairs and made the sufficiency case split explicit.",
+      "Explained tree-component deficits as unfilled corners.",
+      "Named the support and construction lemmas and kept short statements with proof openings.",
+      "Condensed the verification discussion and consolidated AI/review disclosures."
+    ],
+    "paper_build": "make paper passed; 6 pages; no warnings, underfull or overfull boxes",
+    "references": "All six references resolve; bibliography and graph source unchanged.",
+    "scope": "Editorial review only; no Lean source changes or new formal validation performed by this review."
   },
   "lean_revision": {
     "verified_at_utc": "2026-10-31T22:33:39.217044+00:00",
