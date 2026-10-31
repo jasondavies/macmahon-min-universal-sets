@@ -42,6 +42,9 @@ Lean 4.35.0 and mathlib v4.35.0 are pinned in `lean-toolchain` and
 `lake-manifest.json`. `make check` checks module headers and metadata, builds the
 library and independent challenge, compares the axiom audit with its recorded
 output, and checks that the data generator reproduces both generated modules.
+`validation/` contains only the axiom audit source and its expected output.
+Build and comparator logs are generated when checks run, rather than committed;
+CI logs and manual preflight reports are associated with the checked revision.
 Ruby, Python 3 and Lean are needed; building the paper also needs LaTeX/latexmk.
 The intentional `sorry` warnings belong only to `Challenge.lean`.
 
@@ -81,9 +84,7 @@ Run the local comparator on Linux with bubblewrap installed:
 make comparator
 ```
 
-The local run passed statement comparison and all three kernels; see the
-[comparator log](validation/comparator.txt) and [verification record](validation/local-checks.json).
-This is a local verification result, not Palomar registry acceptance.
+Local verification does not constitute Palomar registry acceptance.
 
 The helper uses the pinned toolchain's Lean checker, NanoDa and con-ron, matching
 Palomar's independent-kernel setup. Dependencies under `.lake/packages` must be

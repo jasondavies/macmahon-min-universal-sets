@@ -101,9 +101,10 @@ review:
   status: "self-assessed; not independently reviewed by a human expert"
   reviewers: ["OpenAI Codex: AI proof development and review"]
   notes: >-
-    Lean build, guarded axiom audits and local comparator results are recorded in
-    validation/. Preparation is not acceptance by the Palomar registry and does
-    not establish publication priority.
+    Reproduce the Lean build and guarded axiom audits with make check, and the
+    local comparator with make comparator. CI logs and manual preflight reports
+    identify the checked revision. Local verification is not acceptance by the
+    Palomar registry and does not establish publication priority.
 alignment:
   namespace: MacMahon
   statements:
