@@ -30,10 +30,12 @@ each pair as a directed edge gives **two disjoint triangles**, with both
 directions present on every edge. The ten unordered partitions into triples
 give exactly the ten minimum collections.
 
-![The 30 MacMahon cubes, each opened out to show all six faces, arranged in Conway's tableau](paper/macmahon-cubes.svg)
+![The 30 MacMahon cubes, each opened out to show all six faces, arranged in Conway's tableau, with the twelve cubes of the ABC | DEF minimum collection in full colour](paper/macmahon-cubes.svg)
 
 *The 30 varieties in Conway's tableau, each opened out as in Johnson and Roldán's
-Figure 2. Digits are face colours; mirror-image varieties lie across the diagonal.*
+Figure 2. The minimum collection for `ABC | DEF` is in full colour; the outlined
+blocks are its two triangles. Digits are face colours; mirror-image varieties lie
+across the diagonal.*
 
 ## How the proof works
 

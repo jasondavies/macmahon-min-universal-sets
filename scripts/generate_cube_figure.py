@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Write paper/macmahon-cubes.svg: all 30 cubes, opened out, in Conway's tableau.
 
-Faces come from results/geometry.json and are drawn as in Johnson and
+The twelve cubes of the minimum set for one partition stay in full colour and
+the other eighteen are faded. Faces come from results/geometry.json and are drawn as in Johnson and
 Roldan's Figure 2, in the left-handed frame the paper uses: +x right, +y down,
 +z towards the viewer. Stops if any cube disagrees with results/tableau.txt.
 """
@@ -24,6 +25,8 @@ D = 16  # depth offset of the oblique faces
 CELL_W = 196
 CELL_H = 164
 MARGIN = 54
+PARTITION = ('ABC', 'DEF')  # the minimum set shown; each part is a tableau block
+FADED_OPACITY = 0.16
 
 
 def number(value):
@@ -94,6 +97,7 @@ def main():
                      f'font-size="24" font-weight="600" fill="{MUTED}" {FONT}>{label.lower()}</text>')
         parts.append(f'<text x="24" y="{MARGIN + i * CELL_H + CELL_H // 2}" text-anchor="middle" '
                      f'font-size="24" font-weight="600" fill="{MUTED}" {FONT}>{label}</text>')
+    selected = 0
     for r, row in enumerate(LABELS):
         for c, column in enumerate(LABELS):
             x = MARGIN + c * CELL_W
@@ -103,13 +107,27 @@ def main():
                              'rx="6" fill="#efece5"/>')
             else:
                 name = row + column.lower()
-                parts.append(cube(name, cubes[name], corners, x + 12, y + 8))
+                drawn = cube(name, cubes[name], corners, x + 12, y + 8)
+                if any(row in part and column in part for part in PARTITION):
+                    selected += 1
+                else:
+                    drawn = f'<g opacity="{FADED_OPACITY}">{drawn}</g>'
+                parts.append(drawn)
+    if selected != 12:
+        raise ValueError(f'{selected} cubes selected, expected 12')
+    for part in PARTITION:
+        first = LABELS.index(part[0])
+        side = len(part)
+        parts.append(f'<rect x="{MARGIN + first * CELL_W - 6}" y="{MARGIN + first * CELL_H - 6}" '
+                     f'width="{side * CELL_W - 2}" height="{side * CELL_H - 2}" rx="10" fill="none" '
+                     f'stroke="{INK}" stroke-width="2.5"/>')
     OUTPUT.write_text(
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" '
         f'height="{height}" role="img" aria-label="The thirty MacMahon cubes, each opened out to '
-        f"show all six faces, arranged in Conway's tableau\">{''.join(parts)}</svg>\n"
+        f"show all six faces, arranged in Conway's tableau, with the minimum set for "
+        f"{PARTITION[0]} | {PARTITION[1]} in full colour\">{''.join(parts)}</svg>\n"
     )
-    print(f'wrote {OUTPUT.relative_to(ROOT)}: 30 cubes, handedness agrees with Table 3')
+    print(f'wrote {OUTPUT.relative_to(ROOT)}: 30 cubes, 12 selected, handedness agrees with Table 3')
 
 
 if __name__ == '__main__':
