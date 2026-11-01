@@ -1,6 +1,7 @@
 # The ten minimum universal sets of MacMahon cubes
 
-- [Paper (PDF)](paper/macmahon-min-universal-sets.pdf) and [LaTeX](paper/macmahon-min-universal-sets.tex).
+- [Paper (PDF)](paper/macmahon-min-universal-sets.pdf) and [LaTeX](paper/macmahon-min-universal-sets.tex), also at [hexagon:2611.00016v1](https://hexagonmath.org/2611.00016v1).
+- Lean verification of record: Palomar registry entry [PALOMAR-2026-11-01-000019, version 1](https://palomar-registry.org/entry?id=PALOMAR-2026-11-01-000019&version=1), for commit `d8856c9`, covering all ten compared theorems.
 - [Main Lean results](MacMahon/Theorems.lean), [physical model](MacMahon/Definitions.lean), and [connection to corner matching](MacMahon/Geometry.lean).
 - [Independent theorem statements](Challenge.lean) and [completed proof entry point](Solution.lean).
 - [Provenance, scope and AI disclosure](formalization.yaml).
